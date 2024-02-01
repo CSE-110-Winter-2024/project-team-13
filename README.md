@@ -2,7 +2,12 @@
 
 ---
 
-
+- Kevin Nie
+- Jou-Chih Chang
+- Abhijay Deevi
+- Kevin Do
+- Jonathan Duong
+- Dylan Ledermann
 
 
 
