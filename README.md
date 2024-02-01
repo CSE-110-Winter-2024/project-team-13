@@ -1,8 +1,10 @@
-# Team X - Successorator 
+# Team 13 - Successorator 
 
 ---
 
-This is the mostly empty template for the Successorator project.
+
+
+
 
 ## Getting Started
 
