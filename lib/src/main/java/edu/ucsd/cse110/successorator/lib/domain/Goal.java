@@ -3,37 +3,26 @@ package edu.ucsd.cse110.successorator.lib.domain;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.io.Serializable;
-
 import java.util.Objects;
 
-/**
- * Goal class that contains the description of the goal.
- */
-public class Goal implements Serializable {
+public class Goal {
     private final @Nullable Integer id;
     private final @NonNull String title;
-    private final @NonNull boolean isCompleted;
+    private boolean isCompleted;
     private final @NonNull Integer sortOrder;
 
-    public Goal(
-        @Nullable Integer id,
-        @NonNull String title,
-        @NonNull Integer sortOrder
-    ) {
+    public Goal(@Nullable Integer id, @NonNull String title, @NonNull Integer sortOrder) {
         this.id = id;
         this.title = title;
         this.isCompleted = false;
         this.sortOrder = sortOrder;
     }
 
-    @Nullable
-    public Integer id() {
+    public @Nullable Integer id() {
         return id;
     }
 
-    @NonNull
-    public String title() {
+    public @NonNull String title() {
         return title;
     }
 
@@ -46,7 +35,6 @@ public class Goal implements Serializable {
     public Goal withSortOrder(int sortOrder) {
         return new Goal(this.id, this.title, sortOrder);
     }
-
 
     @Override
     public boolean equals(Object o) {
