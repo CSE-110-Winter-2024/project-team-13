@@ -9,6 +9,7 @@ public class Goal {
     private final @Nullable Integer id;
     private final @NonNull String title;
     private boolean isCompleted;
+
     private final @NonNull Integer sortOrder;
 
     public Goal(@Nullable Integer id, @NonNull String title, @NonNull Integer sortOrder) {
