@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class GoalList {
 
-    ArrayList<Goal> list;
+    private ArrayList<Goal> list;
 
     public GoalList() {
         list = new ArrayList<Goal>();
@@ -20,5 +20,9 @@ public class GoalList {
 
     public void prepend(Goal goal) {
         list.add(0, goal);
+    }
+
+    public ArrayList<Goal> getList() {
+        return list;
     }
 }
