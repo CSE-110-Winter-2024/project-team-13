@@ -2,39 +2,20 @@ package edu.ucsd.cse110.successorator.lib.domain;
 
 import java.util.List;
 
-import edu.ucsd.cse110.successorator.lib.data.InMemoryDataSource;
 import edu.ucsd.cse110.successorator.lib.util.Subject;
 
-public class GoalRepository {
-    private final InMemoryDataSource dataSource;
+public interface GoalRepository {
+    Subject<Goal> find(int id);
 
-    public GoalRepository(InMemoryDataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+    Subject<List<Goal>> findAll();
 
-    public Subject<Goal> find(int id) {
-        return dataSource.getGoalSubject(id);
-    }
+    void save(Goal goal);
 
-    public Subject<List<Goal>> findAll() {
-        return dataSource.getAllGoalsSubject();
-    }
+    void save(List<Goal> goals);
 
-    public void save(Goal goal) {
-        dataSource.putGoal(goal);
-    }
+    void prepend(Goal goal);
 
-    public void save(List<Goal> goals) {
-        dataSource.putGoals(goals);
-    }
+    void remove(int id);
 
-    public void remove(int id) {
-        dataSource.removeGoal(id);
-    }
-
-    public void append(Goal goal) {
-        dataSource.putGoal(
-            goal.withSortOrder(dataSource.getMaxSortOrder() + 1)
-        );
-    }
+    void append(Goal goal);
 }
