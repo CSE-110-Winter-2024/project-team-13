@@ -19,6 +19,13 @@ public class GoalTest {
     }
 
     @Test
+    public void setComplete() {
+        Goal goal = new Goal(1, "title", 1);
+        goal.setComplete(true);
+        assertTrue(goal.isCompleted());
+    }
+
+    @Test
     public void sortOrder() {
         Goal goal = new Goal(1, "title", 1);
         assertEquals(1, goal.sortOrder());
