@@ -1,6 +1,8 @@
 package edu.ucsd.cse110.successorator.lib.domain;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class GoalList {
 
@@ -24,5 +26,36 @@ public class GoalList {
 
     public ArrayList<Goal> getList() {
         return list;
+    }
+
+    // Mark a goal as completed by its ID
+    public void markCompleted(Integer id) {
+        list.forEach(goal -> {
+            if (goal.id() != null && goal.id().equals(id)) {
+                goal.setComplete(true);
+            }
+        });
+    }
+
+    // Retrieve all completed goals
+    public List<Goal> getCompletedGoals() {
+        return list.stream()
+                .filter(Goal::isCompleted)
+                .collect(Collectors.toList());
+    }
+
+    // Retrieve all unfinished goals
+    public List<Goal> getUnfinishedGoals() {
+        return list.stream()
+                .filter(goal -> !goal.isCompleted())
+                .collect(Collectors.toList());
+    }
+
+    // Find a goal by ID
+    public Goal findGoalById(Integer id) {
+        return list.stream()
+                .filter(goal -> goal.id() != null && goal.id().equals(id))
+                .findFirst()
+                .orElse(null);
     }
 }
