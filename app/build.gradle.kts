@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "edu.ucsd.cse110.successorator"
+    namespace = "edu.ucsd.cse110.successorator.app"
     compileSdk = 34
 
     defaultConfig {
@@ -37,7 +37,7 @@ android {
 }
 
 dependencies {
-    project(":lib")
+    implementation(project(":lib"))
 
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")

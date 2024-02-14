@@ -1,20 +1,20 @@
-# Team X - Successorator 
+# Team 13 - Successorator 
 
 ---
 
-This is the mostly empty template for the Successorator project.
+## Team Members
+- Kevin Nie
+- Jou-Chih Chang
+- Abhijay Deevi
+- Kevin Do
+- Jonathan Duong
+- Dylan Ledermann
 
-## Getting Started
+---
 
- - [ ] Look around the project.
-   - The `docs/` directory may be helpful, as Slack/Discord messages are easy to lose.
-     - This is a good place to put finalized user stories, standards, guidelines, meeting notes, etc
-       that you want to stick with the repository in perpetuity (e.g. after the semester ends) e.g.
-       for portfolio purposes.
-     - Google Docs is easier for collaboration, but eventually you might want to put the
-       finalized versions here for reference. (This way you can also reference them in PRs!)
- - [ ] Modify the `.github/pull_request_template.md` to suit your needs.
-   - You **do not** need to use the exact same template, but justify your changes when you 
-     PR the updated template.
- - [ ] Replace this README with something appropriate.
-   - **When you do, replace the title to replace X with your team number.**
+## Successorator Description
+Successorator is an Android app that will function as a TO-DO list for a user. 
+They will be able to add goals to a list that will rollover to the next day if not completed.
+They can tap on any goal to mark it as finished so it is moved to the bottom of the list.
+
+---
