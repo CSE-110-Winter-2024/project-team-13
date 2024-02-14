@@ -15,6 +15,7 @@ import java.util.List;
 
 import edu.ucsd.cse110.successorator.app.MainViewModel;
 import edu.ucsd.cse110.successorator.app.databinding.FragmentGoalListBinding;
+import edu.ucsd.cse110.successorator.app.ui.goallist.dialog.ConfirmDeleteGoalDialogFragment;
 import edu.ucsd.cse110.successorator.app.ui.goallist.dialog.CreateGoalDialogFragment;
 
 public class GoalListFragment extends Fragment {
@@ -41,7 +42,10 @@ public class GoalListFragment extends Fragment {
         var modelProvider = new ViewModelProvider(modelOwner, modelFactory);
         this.activityModel = modelProvider.get(MainViewModel.class);
 
-        this.adapter = new GoalListAdapter(requireContext(), List.of(), activityModel::remove);
+        this.adapter = new GoalListAdapter(requireContext(), List.of(), id -> {
+            var dialogFragment = ConfirmDeleteGoalDialogFragment.newInstance(id);
+            dialogFragment.show(getParentFragmentManager(), "ConfirmDeleteGoalDialogFragment");
+        });
         activityModel.getOrderedGoals().observe(goals -> {
             if (goals == null) return;
             adapter.clear();
