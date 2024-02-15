@@ -68,16 +68,15 @@ import edu.ucsd.cse110.successorator.lib.util.Subject;
     @Override
     public void endOfIncompleted(Goal goal) {
         List<Goal> list = this.findAllList();
-
-        int counter = 0;
-        for (int i = 0; i < list.size(); i++) {
-            if (!list.get(i).isCompleted()) {
-                counter++;
-            } else {
+        int sOrder = 0;
+        for (Goal i : list) {
+            sOrder = i.sortOrder();
+            if (i.isCompleted()) {
                 break;
             }
         }
-        goalDao.endOfIncompleted(GoalEntity.fromGoal(goal), counter);
+
+        goalDao.endOfIncompleted(GoalEntity.fromGoal(goal), sOrder);
     }
 
     @Override
