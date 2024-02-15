@@ -23,6 +23,11 @@ public class SimpleGoalRepository implements GoalRepository {
     }
 
     @Override
+    public List<Goal> findAllList() {
+        return dataSource.getGoals();
+    }
+
+    @Override
     public void save(Goal goal) {
         dataSource.putGoal(goal);
     }
@@ -52,5 +57,19 @@ public class SimpleGoalRepository implements GoalRepository {
         dataSource.putGoal(
                 goal.withSortOrder(dataSource.getMinSortOrder() - 1)
         );
+    }
+
+    public void endOfIncompleted(Goal goal) {
+        List<Goal> list = dataSource.getGoals();
+        int counter = 0;
+        for (int i = 0; i < list.size(); i++) {
+            if (!list.get(i).isCompleted()) {
+                counter++;
+            } else {
+                break;
+            }
+        }
+        dataSource.shiftSortOrders(counter+1, dataSource.getMaxSortOrder(), 1);
+        dataSource.putGoal(goal.withSortOrder(counter));
     }
 }

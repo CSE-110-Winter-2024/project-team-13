@@ -53,6 +53,14 @@ public interface GoalDao {
     }
 
     @Transaction
+    default int endOfIncompleted(GoalEntity goal, int insertion) {
+        var maxSortOrder = getMaxSortOrder();
+        var newGoal = new GoalEntity(goal.title,insertion);
+        newGoal.isCompleted = goal.isCompleted;
+        return Math.toIntExact(insert(newGoal));
+    }
+
+    @Transaction
     default int prepend(GoalEntity goal) {
         shiftSortOrders(getMinSortOrder(), getMaxSortOrder(), 1);
         var newGoal = new GoalEntity(goal.title, getMinSortOrder() - 1);
