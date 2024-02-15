@@ -45,7 +45,7 @@ public class GoalListFragment extends Fragment {
         this.adapter = new GoalListAdapter(requireContext(), List.of(), id -> {
             var dialogFragment = ConfirmDeleteGoalDialogFragment.newInstance(id);
             dialogFragment.show(getParentFragmentManager(), "ConfirmDeleteGoalDialogFragment");
-        });
+        }, activityModel);
         activityModel.getOrderedGoals().observe(goals -> {
             if (goals == null) return;
             adapter.clear();

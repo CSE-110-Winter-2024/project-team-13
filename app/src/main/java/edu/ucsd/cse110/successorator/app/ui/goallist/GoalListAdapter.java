@@ -15,14 +15,19 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import edu.ucsd.cse110.successorator.app.databinding.ListItemGoalBinding;
+import edu.ucsd.cse110.successorator.app.MainViewModel;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
+
 
 public class GoalListAdapter extends ArrayAdapter<Goal> {
     Consumer<Integer> onDeleteClick;
 
-    public GoalListAdapter(Context context, List<Goal> flashcards, Consumer<Integer> onDeleteClick) {
-        super(context, 0, new ArrayList<>(flashcards));
+    private MainViewModel activityModel;
+
+    public GoalListAdapter(Context context, List<Goal> goals, Consumer<Integer> onDeleteClick, MainViewModel activityModel) {
+        super(context, 0, new ArrayList<>(goals));
         this.onDeleteClick = onDeleteClick;
+        this.activityModel = activityModel;
     }
 
     @NonNull
@@ -41,15 +46,25 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
 
         var goalTitle = binding.goalTitle;
         goalTitle.setText(goal.title());
-
+        if(goal.isCompleted()){
+            goalTitle.setPaintFlags(goalTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+        else{
+            goalTitle.setPaintFlags(goalTitle.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+        }
 
         goalTitle.setOnClickListener(v -> {
             // https://www.codingdemos.com/android-strikethrough-text/
-            if(!goalTitle.getPaint().isStrikeThruText()) {
-                goalTitle.setPaintFlags(goalTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            if(!goal.isCompleted()) {
+                goal.setIsCompleted(true);
+                activityModel.remove(goal.id());
+                activityModel.append(goal);
+
             }
             else {
-                goalTitle.setPaintFlags(goalTitle.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+                goal.setIsCompleted(false);
+                activityModel.remove(goal.id());
+                activityModel.prepend(goal);
             }
 //            var id = goal.id();
 //            assert id != null;

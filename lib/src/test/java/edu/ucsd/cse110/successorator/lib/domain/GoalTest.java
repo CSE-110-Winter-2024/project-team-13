@@ -2,6 +2,7 @@ package edu.ucsd.cse110.successorator.lib.domain;
 
 import static org.junit.Assert.*;
 
+import org.jetbrains.annotations.TestOnly;
 import org.junit.Test;
 
 public class GoalTest {
@@ -19,9 +20,9 @@ public class GoalTest {
     }
 
     @Test
-    public void setComplete() {
+    public void SetIsComplete() {
         Goal goal = new Goal(1, "title", 1);
-        goal.setComplete(true);
+        goal.setIsCompleted(true);
         assertTrue(goal.isCompleted());
     }
 

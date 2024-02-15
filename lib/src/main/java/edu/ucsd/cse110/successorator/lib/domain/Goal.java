@@ -19,10 +19,6 @@ public class Goal {
         this.sortOrder = sortOrder;
     }
 
-    public void setComplete(boolean isCompleted) {
-        this.isCompleted = isCompleted;
-    }
-
     public @Nullable Integer id() {
         return id;
     }
@@ -35,6 +31,10 @@ public class Goal {
 
     public boolean isCompleted() {
         return isCompleted;
+    }
+
+    public void setIsCompleted(boolean completed){
+        isCompleted = completed;
     }
 
     public Goal withId(int id) {
