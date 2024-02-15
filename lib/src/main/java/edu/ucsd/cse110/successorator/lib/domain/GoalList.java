@@ -28,14 +28,6 @@ public class GoalList {
         return list;
     }
 
-    // Mark a goal as completed by its ID
-    public void markCompleted(Integer id) {
-        list.forEach(goal -> {
-            if (goal.id() != null && goal.id().equals(id)) {
-                goal.setComplete(true);
-            }
-        });
-    }
 
     // Retrieve all completed goals
     public List<Goal> getCompletedGoals() {

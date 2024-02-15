@@ -51,22 +51,11 @@ public class GoalListTest {
     }
 
     @Test
-    public void markCompleted() {
-        GoalList goalList = new GoalList();
-        Goal goal = new Goal(1, "Complete this task", 1);
-        goalList.append(goal);
-
-        goalList.markCompleted(1);
-
-        assertTrue(goalList.getList().get(0).isCompleted());
-    }
-
-    @Test
     public void getCompletedGoals() {
         GoalList goalList = new GoalList();
         Goal completedGoal = new Goal(1, "Finished task", 1);
         Goal unfinishedGoal = new Goal(2, "Unfinished task", 2);
-        completedGoal.setComplete(true);
+        completedGoal.setIsCompleted(true);
         goalList.append(completedGoal);
         goalList.append(unfinishedGoal);
 
@@ -80,7 +69,7 @@ public class GoalListTest {
         GoalList goalList = new GoalList();
         Goal completedGoal = new Goal(1, "Finished task", 1);
         Goal unfinishedGoal = new Goal(2, "Unfinished task", 2);
-        completedGoal.setComplete(true);
+        completedGoal.setIsCompleted(true);
         goalList.append(completedGoal);
         goalList.append(unfinishedGoal);
 
