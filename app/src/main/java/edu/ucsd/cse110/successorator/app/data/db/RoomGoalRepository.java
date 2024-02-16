@@ -71,11 +71,17 @@ import edu.ucsd.cse110.successorator.lib.util.Subject;
         list.add(goal);
         int sOrder = 0;
         for (Goal i : list) {
+            if (i.sortOrder() == -1) {
+                sOrder++;
+                continue;
+            }
             sOrder = i.sortOrder();
             if (i.isCompleted()) {
                 break;
             }
+
         }
+
 
         goalDao.endOfIncompleted(GoalEntity.fromGoal(goal), sOrder);
     }

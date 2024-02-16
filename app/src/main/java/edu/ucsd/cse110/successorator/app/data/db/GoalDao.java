@@ -57,9 +57,9 @@ public interface GoalDao {
 
     @Transaction
     default int endOfIncompleted(GoalEntity goal, int sOrder) {
-
-        shiftSortOrders(sOrder, getMaxSortOrder(), 1);
+        var maxSortOrder = getMaxSortOrder();
         var newGoal = new GoalEntity(goal.title,sOrder);
+            shiftSortOrders(sOrder, getMaxSortOrder(), 1);
         newGoal.isCompleted = goal.isCompleted;
         return Math.toIntExact(insert(newGoal));
     }
