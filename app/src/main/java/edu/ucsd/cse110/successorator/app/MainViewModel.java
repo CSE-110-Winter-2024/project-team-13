@@ -77,6 +77,10 @@ public class MainViewModel extends ViewModel {
         goalRepository.append(goal);
     }
 
+    public void endOfIncompleted(Goal goal) {
+        goalRepository.endOfIncompleted(goal);
+    }
+
     public void prepend(Goal goal){ goalRepository.prepend(goal); }
 
     public void remove(int id) {

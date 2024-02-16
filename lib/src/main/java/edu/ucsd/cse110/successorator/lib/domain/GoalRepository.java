@@ -9,6 +9,8 @@ public interface GoalRepository {
 
     Subject<List<Goal>> findAll();
 
+    List<Goal> findAllList();
+
     void save(Goal goal);
 
     void save(List<Goal> goals);
@@ -18,4 +20,6 @@ public interface GoalRepository {
     void remove(int id);
 
     void append(Goal goal);
+
+    void endOfIncompleted(Goal goal);
 }

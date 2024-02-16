@@ -5,6 +5,7 @@ import java.util.List;
 import edu.ucsd.cse110.successorator.lib.data.InMemoryDataSource;
 import edu.ucsd.cse110.successorator.lib.util.Subject;
 
+// file is not needed because we have the room repository now
 public class SimpleGoalRepository implements GoalRepository {
     private final InMemoryDataSource dataSource;
 
@@ -20,6 +21,11 @@ public class SimpleGoalRepository implements GoalRepository {
     @Override
     public Subject<List<Goal>> findAll() {
         return dataSource.getAllGoalsSubject();
+    }
+
+    @Override
+    public List<Goal> findAllList() {
+        return dataSource.getGoals();
     }
 
     @Override
@@ -52,5 +58,19 @@ public class SimpleGoalRepository implements GoalRepository {
         dataSource.putGoal(
                 goal.withSortOrder(dataSource.getMinSortOrder() - 1)
         );
+    }
+
+    public void endOfIncompleted(Goal goal) {
+//        List<Goal> list = dataSource.getGoals();
+//        int counter = 0;
+//        for (int i = 0; i < list.size(); i++) {
+//            if (!list.get(i).isCompleted()) {
+//                counter++;
+//            } else {
+//                break;
+//            }
+//        }
+//        dataSource.shiftSortOrders(counter+1, dataSource.getMaxSortOrder(), 1);
+//        dataSource.putGoal(goal.withSortOrder(counter));
     }
 }

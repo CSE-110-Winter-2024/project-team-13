@@ -36,6 +36,13 @@ import edu.ucsd.cse110.successorator.lib.util.Subject;
     }
 
     @Override
+    public List<Goal> findAllList() {
+        return goalDao.findAll().stream()
+                .map(GoalEntity::toGoal)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public void save(Goal goal) {
         goalDao.insert(GoalEntity.fromGoal(goal));
     }
@@ -56,6 +63,27 @@ import edu.ucsd.cse110.successorator.lib.util.Subject;
     @Override
     public void prepend(Goal goal) {
         goalDao.prepend(GoalEntity.fromGoal(goal));
+    }
+
+    @Override
+    public void endOfIncompleted(Goal goal) {
+        List<Goal> list = this.findAllList();
+        list.add(goal);
+        int sOrder = 0;
+        for (Goal i : list) {
+            if (i.sortOrder() == -1) {
+                sOrder++;
+                continue;
+            }
+            sOrder = i.sortOrder();
+            if (i.isCompleted()) {
+                break;
+            }
+
+        }
+
+
+        goalDao.endOfIncompleted(GoalEntity.fromGoal(goal), sOrder);
     }
 
     @Override
