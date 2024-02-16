@@ -3,12 +3,16 @@ package edu.ucsd.cse110.successorator.app;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+
+import java.text.DateFormat;
+import java.util.Calendar;
 
 import edu.ucsd.cse110.successorator.app.databinding.ActivityMainBinding;
 import edu.ucsd.cse110.successorator.app.ui.goal.GoalFragment;
@@ -27,6 +31,12 @@ public class MainActivity extends AppCompatActivity {
         this.view = ActivityMainBinding.inflate(getLayoutInflater());
 
         setContentView(view.getRoot());
+
+        Calendar calendar = Calendar.getInstance();
+        var dateFormat = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
+
+        TextView dateTextView = findViewById(R.id.date);
+        dateTextView.setText(dateFormat);
     }
 
 //    @Override
