@@ -68,6 +68,7 @@ import edu.ucsd.cse110.successorator.lib.util.Subject;
     @Override
     public void endOfIncompleted(Goal goal) {
         List<Goal> list = this.findAllList();
+        list.add(goal);
         int sOrder = 0;
         for (Goal i : list) {
             sOrder = i.sortOrder();
