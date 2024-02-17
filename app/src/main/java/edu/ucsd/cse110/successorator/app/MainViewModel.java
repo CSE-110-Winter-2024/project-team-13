@@ -106,10 +106,11 @@ public class MainViewModel extends ViewModel {
 
         // Iterate over the goals and remove completed ones that are outdated
         for (Goal goal : allGoals) {
-            System.out.println(goal.id());
-            if (goal.isCompleted() && goal.getLastUpdated().before(today.getTime())) {
-                System.out.println(goal.id());
-                remove(goal.id());
+            //System.out.println(goal.id());
+            if (goal.isCompleted()) {
+            //if (goal.isCompleted() && goal.getLastUpdated().before(today.getTime())) {
+                    remove(goal.id());
+
             }
         }
     }
