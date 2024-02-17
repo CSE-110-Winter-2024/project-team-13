@@ -93,17 +93,17 @@ public class MainViewModel extends ViewModel {
     public void removeOutdatedCompletedGoals() {
 
         Calendar today = Calendar.getInstance();
-        today.set(Calendar.HOUR_OF_DAY, 0);
-        today.set(Calendar.MINUTE, 0);
-        today.set(Calendar.SECOND, 0);
-        today.set(Calendar.MILLISECOND, 0);
+//        today.set(Calendar.HOUR_OF_DAY, 0);
+//        today.set(Calendar.MINUTE, 0);
+//        today.set(Calendar.SECOND, 0);
+//        today.set(Calendar.MILLISECOND, 0);
 
         // Get the list of all goals
         List<Goal> allGoals = goalRepository.findAllList();
 
         // Iterate over the goals and remove completed ones that are outdated
         for (Goal goal : allGoals) {
-            if (goal.isCompleted() && goal.getLastUpdated().before(today.getTime())) {
+            if (goal.isCompleted() && goal.getLastUpdated().get(Calendar.DAY_OF_MONTH) < today.get(Calendar.DAY_OF_MONTH)) {
                     remove(goal.id());
             }
         }

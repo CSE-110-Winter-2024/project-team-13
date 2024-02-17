@@ -39,7 +39,7 @@ public class Goal {
 
     public void setIsCompleted(boolean completed){
         isCompleted = completed;
-        this.lastUpdated = Calendar.getInstance();
+//        this.lastUpdated = Calendar.getInstance();
     }
 
     public Goal withId(int id) {
@@ -56,7 +56,8 @@ public class Goal {
         if (o == null || getClass() != o.getClass()) return false;
         Goal goal = (Goal) o;
         return isCompleted == goal.isCompleted && Objects.equals(id, goal.id)
-                && Objects.equals(title, goal.title) && Objects.equals(sortOrder, goal.sortOrder);
+                && Objects.equals(title, goal.title) && Objects.equals(sortOrder, goal.sortOrder)
+                && Objects.equals(lastUpdated, goal.lastUpdated);
     }
 
     @Override
