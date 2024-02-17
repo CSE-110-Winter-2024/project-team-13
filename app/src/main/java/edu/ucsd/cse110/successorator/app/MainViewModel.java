@@ -91,10 +91,7 @@ public class MainViewModel extends ViewModel {
     }
 
     public void removeOutdatedCompletedGoals() {
-        // This should run in a background thread, you may need to use AsyncTask or similar
-        // depending on how you access your database.
 
-        // Get the current date at midnight (00:00:00)
         Calendar today = Calendar.getInstance();
         today.set(Calendar.HOUR_OF_DAY, 0);
         today.set(Calendar.MINUTE, 0);
@@ -106,11 +103,8 @@ public class MainViewModel extends ViewModel {
 
         // Iterate over the goals and remove completed ones that are outdated
         for (Goal goal : allGoals) {
-            //System.out.println(goal.id());
-            if (goal.isCompleted()) {
-            //if (goal.isCompleted() && goal.getLastUpdated().before(today.getTime())) {
+            if (goal.isCompleted() && goal.getLastUpdated().before(today.getTime())) {
                     remove(goal.id());
-
             }
         }
     }

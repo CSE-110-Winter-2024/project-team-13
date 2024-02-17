@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Objects;
 
 public class Goal {
@@ -40,6 +39,7 @@ public class Goal {
 
     public void setIsCompleted(boolean completed){
         isCompleted = completed;
+        this.lastUpdated = Calendar.getInstance();
     }
 
     public Goal withId(int id) {
@@ -61,7 +61,7 @@ public class Goal {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, isCompleted, sortOrder);
+        return Objects.hash(id, title, isCompleted, sortOrder, lastUpdated);
     }
     public Calendar getLastUpdated() {
         return lastUpdated;
