@@ -102,13 +102,19 @@ public class MainViewModel extends ViewModel {
         today.set(Calendar.MILLISECOND, 0);
 
         // Get the list of all goals
-        List<Goal> allGoals = goalRepository.findAllList(); // Assuming you have a method like this in your GoalRepository
+        List<Goal> allGoals = goalRepository.findAllList();
 
         // Iterate over the goals and remove completed ones that are outdated
         for (Goal goal : allGoals) {
+            System.out.println(goal.id());
             if (goal.isCompleted() && goal.getLastUpdated().before(today.getTime())) {
-                remove(goal.id()); // Use the existing remove method
+                System.out.println(goal.id());
+                remove(goal.id());
             }
         }
+    }
+
+    public void removeAllGoals() {
+        goalRepository.removeAll();
     }
 }

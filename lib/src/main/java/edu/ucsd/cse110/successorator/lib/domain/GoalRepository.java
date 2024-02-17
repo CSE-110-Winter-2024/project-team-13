@@ -22,4 +22,6 @@ public interface GoalRepository {
     void append(Goal goal);
 
     void endOfIncompleted(Goal goal);
+
+    void removeAll();
 }

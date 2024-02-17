@@ -13,6 +13,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 
 import edu.ucsd.cse110.successorator.app.databinding.ActivityMainBinding;
 import edu.ucsd.cse110.successorator.app.ui.goal.GoalFragment;
@@ -38,11 +41,20 @@ public class MainActivity extends AppCompatActivity {
         TextView dateTextView = findViewById(R.id.date);
         dateTextView.setText(dateFormat);
 
+
+
         // Get the MainViewModel instance
         MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        // Use an ExecutorService to run the cleanup method in the background
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.execute(mainViewModel::removeOutdatedCompletedGoals);
 
-        // Perform the cleanup of completed goals
-        mainViewModel.removeOutdatedCompletedGoals();
+
+//        Debug Purposes: Remove All Goals
+//        MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+//        // Use an ExecutorService to run the cleanup method in the background
+//        ExecutorService executor = Executors.newSingleThreadExecutor();
+//        executor.execute(mainViewModel::removeAllGoals);
 
     }
 

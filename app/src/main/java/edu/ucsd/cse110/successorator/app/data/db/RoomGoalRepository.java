@@ -90,4 +90,11 @@ import edu.ucsd.cse110.successorator.lib.util.Subject;
     public void remove(int id) {
         goalDao.delete(id);
     }
+
+    // Implement the removeAll method
+    @Override
+    public void removeAll() {
+        // Remember, database access must be done off the main thread
+        goalDao.deleteAll();
+    }
 }
