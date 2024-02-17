@@ -41,11 +41,7 @@ public class MainActivity extends AppCompatActivity {
         TextView dateTextView = findViewById(R.id.date);
         dateTextView.setText(dateFormat);
 
-
-
-        // Get the MainViewModel instance
         MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
-        // Use an ExecutorService to run the cleanup method in the background
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(mainViewModel::removeOutdatedCompletedGoals);
 
