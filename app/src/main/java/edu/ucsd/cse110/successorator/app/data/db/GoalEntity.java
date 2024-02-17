@@ -24,30 +24,30 @@ public class GoalEntity {
     @ColumnInfo(name = "sort_order")
     public int sortOrder;
 
-//    @ColumnInfo(name = "last_updated")
-//    public long lastUpdated;
+    @ColumnInfo(name = "last_updated")
+    public long lastUpdated;
 
     GoalEntity(@NonNull String title, int sortOrder) {
         this.title = title;
         this.sortOrder = sortOrder;
         this.isCompleted = false;
-//        this.lastUpdated = Calendar.getInstance().getTimeInMillis();
+        this.lastUpdated = Calendar.getInstance().getTimeInMillis();
     }
 
     public static GoalEntity fromGoal(@NonNull Goal goal) {
         var card = new GoalEntity(goal.title(), goal.sortOrder());
         card.id = goal.id();
         card.isCompleted = goal.isCompleted();
-//        card.lastUpdated = goal.getLastUpdated().getTimeInMillis();
+        card.lastUpdated = goal.getLastUpdated().getTimeInMillis();
         return card;
     }
 
     public @NonNull Goal toGoal() {
         Goal goal = new Goal(id, title, sortOrder);
         goal.setIsCompleted(isCompleted);
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.setTimeInMillis(lastUpdated);
-//        goal.setLastUpdated(calendar);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(lastUpdated);
+        goal.setLastUpdated(calendar);
         return goal;
     }
 }
