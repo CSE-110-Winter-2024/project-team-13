@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import edu.ucsd.cse110.successorator.app.databinding.ActivityMainBinding;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(view.getRoot());
 
         Calendar calendar = Calendar.getInstance();
-        var dateFormat = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
+        var dateFormat = new SimpleDateFormat("EEEE, M/dd").format(calendar.getTime());
 
         TextView dateTextView = findViewById(R.id.date);
         dateTextView.setText(dateFormat);
