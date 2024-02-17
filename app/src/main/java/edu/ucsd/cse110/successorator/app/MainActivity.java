@@ -23,19 +23,17 @@ import edu.ucsd.cse110.successorator.lib.domain.GoalRepository;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding view;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle(R.string.app_name);
 
         this.view = ActivityMainBinding.inflate(getLayoutInflater());
-
         setContentView(view.getRoot());
 
         Calendar calendar = Calendar.getInstance();
-        var dateFormat = new SimpleDateFormat("EEEE, M/dd").format(calendar.getTime());
 
+        var dateFormat = new SimpleDateFormat("EEEE, M/dd").format(calendar.getTime());
         TextView dateTextView = findViewById(R.id.date);
         dateTextView.setText(dateFormat);
 

@@ -13,7 +13,7 @@ public class Goal {
     private boolean isCompleted;
 
     private final @NonNull Integer sortOrder;
-    private Calendar lastUpdated;
+    private long lastUpdated;
 
 
     public Goal(@Nullable Integer id, @NonNull String title, @NonNull Integer sortOrder) {
@@ -21,7 +21,7 @@ public class Goal {
         this.title = title;
         this.isCompleted = false;
         this.sortOrder = sortOrder;
-        this.lastUpdated = Calendar.getInstance();
+        this.lastUpdated = Calendar.getInstance().getTimeInMillis();
     }
 
     public @Nullable Integer id() {
@@ -63,11 +63,11 @@ public class Goal {
     public int hashCode() {
         return Objects.hash(id, title, isCompleted, sortOrder);
     }
-    public Calendar getLastUpdated() {
+    public long getLastUpdated() {
         return lastUpdated;
     }
 
-    public void setLastUpdated(Calendar lastUpdated) {
+    public void setLastUpdated(long lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
 }

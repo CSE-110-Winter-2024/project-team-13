@@ -4,10 +4,14 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.viewmodel.ViewModelInitializer;
 import static androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY;
 
+import android.util.Log;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -94,19 +98,19 @@ public class MainViewModel extends ViewModel {
         // This should run in a background thread, you may need to use AsyncTask or similar
         // depending on how you access your database.
 
-        // Get the current date at midnight (00:00:00)
-        Calendar today = Calendar.getInstance();
-        today.set(Calendar.HOUR_OF_DAY, 0);
-        today.set(Calendar.MINUTE, 0);
-        today.set(Calendar.SECOND, 0);
-        today.set(Calendar.MILLISECOND, 0);
+        // Get the refresh date at 2 AM (02:00:00)
+        Calendar refresh = Calendar.getInstance();
+        refresh.set(Calendar.HOUR_OF_DAY, 2);
+        refresh.set(Calendar.MINUTE, 0);
+        refresh.set(Calendar.SECOND, 0);
+        refresh.set(Calendar.MILLISECOND, 0);
 
         // Get the list of all goals
         List<Goal> allGoals = goalRepository.findAllList(); // Assuming you have a method like this in your GoalRepository
 
         // Iterate over the goals and remove completed ones that are outdated
         for (Goal goal : allGoals) {
-            if (goal.isCompleted() && goal.getLastUpdated().before(today.getTime())) {
+            if (goal.isCompleted() && (new Date(goal.getLastUpdated()).before(new Date(refresh.getTimeInMillis())))) {
                 remove(goal.id()); // Use the existing remove method
             }
         }
