@@ -37,6 +37,13 @@ public class MainActivity extends AppCompatActivity {
 
         TextView dateTextView = findViewById(R.id.date);
         dateTextView.setText(dateFormat);
+
+        // Get the MainViewModel instance
+        MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+
+        // Perform the cleanup of completed goals
+        mainViewModel.removeOutdatedCompletedGoals();
+
     }
 
 //    @Override
