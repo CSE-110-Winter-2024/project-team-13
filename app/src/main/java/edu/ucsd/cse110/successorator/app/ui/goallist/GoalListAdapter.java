@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -63,6 +64,7 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
             }
             else {
                 goal.setIsCompleted(false);
+                goal.setLastUpdated(Calendar.getInstance());
                 activityModel.remove(goal.id());
                 activityModel.endOfIncompleted(goal);
             }

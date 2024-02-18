@@ -90,4 +90,9 @@ import edu.ucsd.cse110.successorator.lib.util.Subject;
     public void remove(int id) {
         goalDao.delete(id);
     }
+
+    @Override
+    public void removeAll() {
+        goalDao.deleteAll();
+    }
 }
