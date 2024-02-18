@@ -156,4 +156,8 @@ public class InMemoryDataSource {
         assert sortOrders.stream().allMatch(i -> i >= minSortOrder);
         assert sortOrders.stream().allMatch(i -> i <= maxSortOrder);
     }
+
+    public void clearGoals() {
+        goals.clear();
+    }
 }

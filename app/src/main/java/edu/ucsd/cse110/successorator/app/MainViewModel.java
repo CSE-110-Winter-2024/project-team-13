@@ -5,6 +5,7 @@ import androidx.lifecycle.viewmodel.ViewModelInitializer;
 import static androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -63,6 +64,8 @@ public class MainViewModel extends ViewModel {
 
             displayedText.setValue(goal.title());
         });
+
+
     }
 
     public Subject<String> getDisplayedText() {
@@ -85,5 +88,28 @@ public class MainViewModel extends ViewModel {
 
     public void remove(int id) {
         goalRepository.remove(id);
+    }
+
+    public void removeOutdatedCompletedGoals() {
+
+        Calendar today = Calendar.getInstance();
+//        today.set(Calendar.HOUR_OF_DAY, 0);
+//        today.set(Calendar.MINUTE, 0);
+//        today.set(Calendar.SECOND, 0);
+//        today.set(Calendar.MILLISECOND, 0);
+
+        // Get the list of all goals
+        List<Goal> allGoals = goalRepository.findAllList();
+
+        // Iterate over the goals and remove completed ones that are outdated
+        for (Goal goal : allGoals) {
+            if (goal.isCompleted() && goal.getLastUpdated().get(Calendar.DAY_OF_MONTH) < today.get(Calendar.DAY_OF_MONTH)) {
+                    remove(goal.id());
+            }
+        }
+    }
+
+    public void removeAllGoals() {
+        goalRepository.removeAll();
     }
 }

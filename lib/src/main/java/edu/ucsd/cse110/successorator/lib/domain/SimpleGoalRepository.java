@@ -73,4 +73,9 @@ public class SimpleGoalRepository implements GoalRepository {
 //        dataSource.shiftSortOrders(counter+1, dataSource.getMaxSortOrder(), 1);
 //        dataSource.putGoal(goal.withSortOrder(counter));
     }
+
+    @Override
+    public void removeAll() {
+        dataSource.clearGoals();
+    }
 }
