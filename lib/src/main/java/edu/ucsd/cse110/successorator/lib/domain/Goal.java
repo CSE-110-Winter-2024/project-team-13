@@ -39,7 +39,7 @@ public class Goal {
 
     public void setIsCompleted(boolean completed){
         isCompleted = completed;
-//        this.lastUpdated = Calendar.getInstance();
+        this.lastUpdated = Calendar.getInstance();
     }
 
     public Goal withId(int id) {

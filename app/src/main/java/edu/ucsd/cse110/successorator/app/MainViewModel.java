@@ -103,8 +103,20 @@ public class MainViewModel extends ViewModel {
 
         // Iterate over the goals and remove completed ones that are outdated
         for (Goal goal : allGoals) {
-            if (goal.isCompleted() && goal.getLastUpdated().get(Calendar.DAY_OF_MONTH) < today.get(Calendar.DAY_OF_MONTH)) {
+            if (goal.isCompleted()) {
+                if (goal.getLastUpdated().get(Calendar.YEAR) < today.get(Calendar.YEAR)) {
                     remove(goal.id());
+                }
+                else if (goal.getLastUpdated().get(Calendar.YEAR) == today.get(Calendar.YEAR)) {
+                    if(goal.getLastUpdated().get(Calendar.MONTH) < today.get(Calendar.MONTH)) {
+                        remove(goal.id());
+                    }
+                    else if(goal.getLastUpdated().get(Calendar.MONTH) == today.get(Calendar.MONTH)) {
+                        if(goal.getLastUpdated().get(Calendar.DAY_OF_MONTH) < today.get(Calendar.DAY_OF_MONTH)) {
+                            remove(goal.id());
+                        }
+                    }
+                }
             }
         }
     }
