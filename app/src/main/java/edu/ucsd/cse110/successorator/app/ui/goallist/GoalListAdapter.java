@@ -68,10 +68,9 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
                 activityModel.remove(goal.id());
                 activityModel.endOfIncompleted(goal);
             }
-//            var id = goal.id();
-//            assert id != null;
-//            onDeleteClick.accept(id);
         });
+
+
 
         return binding.getRoot();
     }
