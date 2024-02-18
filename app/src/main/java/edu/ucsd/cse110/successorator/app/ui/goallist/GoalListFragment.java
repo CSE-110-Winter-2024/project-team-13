@@ -1,5 +1,6 @@
 package edu.ucsd.cse110.successorator.app.ui.goallist;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +49,11 @@ public class GoalListFragment extends Fragment {
         }, activityModel);
         activityModel.getOrderedGoals().observe(goals -> {
             if (goals == null) return;
+            if (!goals.isEmpty()) {
+                view.getRoot().setBackgroundColor(Color.WHITE);
+            } else {
+                view.getRoot().setBackgroundColor(Color.TRANSPARENT);
+            }
             adapter.clear();
             adapter.addAll(new ArrayList<>(goals));
             adapter.notifyDataSetChanged();
