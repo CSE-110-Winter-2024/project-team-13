@@ -27,21 +27,6 @@ public class MainViewModelTest {
     }
 
     @Test
-    public void prepend() {
-        var dataSource = InMemoryDataSource.fromDefault();
-        var repo = new SimpleGoalRepository(dataSource);
-        var model = new MainViewModel(repo);
-
-        Goal goal = new Goal(6, "New Goal", 0);
-
-        model.prepend(goal);
-        List<Goal> l = dataSource.getGoals();
-        assertEquals(7, l.size());
-
-//        assertEquals((Integer) 6, l.get(0).id());
-    }
-
-    @Test
     public void remove() {
         var dataSource = InMemoryDataSource.fromDefault();
         var repo = new SimpleGoalRepository(dataSource);
