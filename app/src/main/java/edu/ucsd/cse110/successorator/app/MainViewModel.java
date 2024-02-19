@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.viewmodel.ViewModelInitializer;
 import static androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -90,33 +92,31 @@ public class MainViewModel extends ViewModel {
         goalRepository.remove(id);
     }
 
-    public void removeOutdatedCompletedGoals() {
-
-        Calendar today = Calendar.getInstance();
-//        today.set(Calendar.HOUR_OF_DAY, 0);
-//        today.set(Calendar.MINUTE, 0);
-//        today.set(Calendar.SECOND, 0);
-//        today.set(Calendar.MILLISECOND, 0);
+    public void removeOutdatedCompletedGoals(Calendar today) {
 
         // Get the list of all goals
         List<Goal> allGoals = goalRepository.findAllList();
-
+        //  goal.getLastUpdated().getTime().before(today.getTime())
         // Iterate over the goals and remove completed ones that are outdated
+
         for (Goal goal : allGoals) {
             if (goal.isCompleted()) {
-                if (goal.getLastUpdated().get(Calendar.YEAR) < today.get(Calendar.YEAR)) {
+                Calendar goalDate = goal.getLastUpdated();
+                if(!(goalDate.get(Calendar.HOUR_OF_DAY) < 2)) {
+                    goalDate.add(Calendar.DAY_OF_MONTH, 1);
+                }
+                goalDate.set(Calendar.HOUR_OF_DAY, 1);
+                goalDate.set(Calendar.MINUTE, 59);
+                goalDate.set(Calendar.SECOND, 59);
+                goalDate.set(Calendar.MILLISECOND, 0);
+
+                Log.d("Expiration Date", goalDate.getTime().toString());
+                Log.d("Today Date", today.getTime().toString());
+
+                if(today.getTime().after(goalDate.getTime())) {
                     remove(goal.id());
                 }
-                else if (goal.getLastUpdated().get(Calendar.YEAR) == today.get(Calendar.YEAR)) {
-                    if(goal.getLastUpdated().get(Calendar.MONTH) < today.get(Calendar.MONTH)) {
-                        remove(goal.id());
-                    }
-                    else if(goal.getLastUpdated().get(Calendar.MONTH) == today.get(Calendar.MONTH)) {
-                        if(goal.getLastUpdated().get(Calendar.DAY_OF_MONTH) < today.get(Calendar.DAY_OF_MONTH)) {
-                            remove(goal.id());
-                        }
-                    }
-                }
+
             }
         }
     }
