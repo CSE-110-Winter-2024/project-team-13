@@ -6,6 +6,7 @@ import static androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.APPLI
 
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
+import edu.ucsd.cse110.successorator.lib.domain.GoalList;
 import edu.ucsd.cse110.successorator.lib.domain.GoalRepository;
 import edu.ucsd.cse110.successorator.lib.util.Subject;
 import edu.ucsd.cse110.successorator.lib.util.SimpleSubject;
@@ -96,11 +98,15 @@ public class MainViewModel extends ViewModel {
 
         // Get the list of all goals
         List<Goal> allGoals = goalRepository.findAllList();
+        GoalList goals = new GoalList();
+        for(Goal goal : allGoals){
+            goals.append(goal);
+        }
         //  goal.getLastUpdated().getTime().before(today.getTime())
         // Iterate over the goals and remove completed ones that are outdated
 
         for (Goal goal : allGoals) {
-            if (goal.isCompleted()) {
+            if (goal.isCompleted() && goal.recursionType().equals("oneTime")) {
                 Calendar goalDate = goal.getLastUpdated();
                 if(!(goalDate.get(Calendar.HOUR_OF_DAY) < 2)) {
                     goalDate.add(Calendar.DAY_OF_MONTH, 1);
@@ -117,6 +123,27 @@ public class MainViewModel extends ViewModel {
                     remove(goal.id());
                 }
 
+            }
+            else if(goal.recursionType().equals("daily") && !goals.has(goal)){
+                endOfIncompleted(new Goal(null, goal.title(), -1));
+            }
+            else if(goal.recursionType().equals("weekly") && !goals.has(goal)
+                    && goal.date().equals(
+                            String.valueOf(new SimpleDateFormat("EEEE").format(today.getTime())))){
+                endOfIncompleted(new Goal(null, goal.title(), -1));
+            }
+            else if(goal.recursionType().equals("monthly") && !goals.has(goal)){
+                String numRepeated = String.valueOf(((today.get(Calendar.DAY_OF_MONTH))-1/7)+1);
+                String day = String.valueOf(new SimpleDateFormat("EEEE").format(today.getTime()));
+                if(numRepeated.equals(goal.date().substring(0,2))
+                        && day.equals(goal.date().substring(2))){
+                    endOfIncompleted(new Goal(null, goal.title(), -1));
+                }
+            }
+            else if(goal.recursionType().equals("yearly") && !goals.has(goal)
+                    && goal.date().equals(
+                            String.valueOf(new SimpleDateFormat("ddMM").format(today.getTime())))){
+                endOfIncompleted(new Goal(null, goal.title(), -1));
             }
         }
     }

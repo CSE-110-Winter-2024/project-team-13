@@ -27,11 +27,19 @@ public class GoalEntity {
     @ColumnInfo(name = "last_updated")
     public long lastUpdated;
 
+    @ColumnInfo(name = "recursion_type")
+    public String recursionType;
+
+    @ColumnInfo(name = "date")
+    public String date;
+
     GoalEntity(@NonNull String title, int sortOrder) {
         this.title = title;
         this.sortOrder = sortOrder;
         this.isCompleted = false;
         this.lastUpdated = Calendar.getInstance().getTimeInMillis();
+        this.recursionType = "oneTime";
+        this.date = "0";
     }
 
     public static GoalEntity fromGoal(@NonNull Goal goal) {
@@ -39,6 +47,8 @@ public class GoalEntity {
         card.id = goal.id();
         card.isCompleted = goal.isCompleted();
         card.lastUpdated = goal.getLastUpdated().getTimeInMillis();
+        card.recursionType = "oneTime";
+        card.date = "0";
         return card;
     }
 
@@ -48,6 +58,8 @@ public class GoalEntity {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(lastUpdated);
         goal.setLastUpdated(calendar);
+        goal.setRecursionType("oneTime");
+        goal.setDate("0");
         return goal;
     }
 }
