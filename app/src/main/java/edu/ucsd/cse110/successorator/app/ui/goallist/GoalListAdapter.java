@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.function.Consumer;
 
+import edu.ucsd.cse110.successorator.app.MainActivity;
+import edu.ucsd.cse110.successorator.app.R;
 import edu.ucsd.cse110.successorator.app.databinding.ListItemGoalBinding;
 import edu.ucsd.cse110.successorator.app.MainViewModel;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
@@ -70,10 +73,10 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
             }
         });
 
-
-
         return binding.getRoot();
     }
+
+
     @Override
     public boolean hasStableIds() {
         return true;
