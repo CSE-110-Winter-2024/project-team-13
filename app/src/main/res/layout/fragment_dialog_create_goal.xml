@@ -18,4 +18,45 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <RadioGroup
+        android:id="@+id/recursive_mode_radio_button_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/goal_title_text">
+
+        <RadioButton
+            android:id="@+id/one_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="One time"
+            android:checked="true"/>
+
+        <RadioButton
+            android:id="@+id/daily"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Daily" />
+
+        <RadioButton
+            android:id="@+id/weekly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Weekly" />
+
+        <RadioButton
+            android:id="@+id/monthly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Monthly" />
+
+        <RadioButton
+            android:id="@+id/yearly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Yearly" />
+    </RadioGroup>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
