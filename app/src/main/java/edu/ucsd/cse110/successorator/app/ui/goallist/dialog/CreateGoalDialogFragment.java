@@ -48,14 +48,15 @@ public class CreateGoalDialogFragment extends DialogFragment {
         this.view = FragmentDialogCreateGoalBinding.inflate(getLayoutInflater());
         Calendar cal = Calendar.getInstance();
         //Creates text with day of the week
-        String weeklyMsg = "Weekly on " + String.valueOf(new SimpleDateFormat("EEEE").format(cal.getTime()));
+        String weeklyMsg = "Weekly on " +
+                String.valueOf(new SimpleDateFormat("EEEE").format(cal.getTime()));
         view.weekly.setText(weeklyMsg);
         //Creates text with day and which number day this is eg: 3rd Tuesday
         int week = cal.get(Calendar.DAY_OF_MONTH);
         //number of times the specific day has repeated this month
         int numRepeated = ((week-1)/7)+1;
         String monthlyMsg;
-        //sets monhtlyMsg according to number suffix eg: 3rd
+        //sets monthlyMsg according to number suffix eg: 3rd
         switch(numRepeated) {
             case 1:
                 monthlyMsg = "Monthly on " + numRepeated + "st "
@@ -76,7 +77,7 @@ public class CreateGoalDialogFragment extends DialogFragment {
         }
         view.monthly.setText(monthlyMsg);
         //Creates text with month and year
-        String yearlyMsg = "Yearly on " + String.valueOf(new SimpleDateFormat("MM/yy").format(cal.getTime()));
+        String yearlyMsg = "Yearly on " + String.valueOf(new SimpleDateFormat("dd/MM/yy").format(cal.getTime()));
         view.yearly.setText(yearlyMsg);
         return new AlertDialog.Builder(getActivity())
             .setTitle("New Goal")
@@ -89,24 +90,35 @@ public class CreateGoalDialogFragment extends DialogFragment {
 
     private void onPositiveButtonClick(DialogInterface dialog, int which) {
         var title = view.goalTitleText.getText().toString();
-        //implemented in US7.2 branch
+        Calendar cal = Calendar.getInstance();
+        Goal goal;
         if(view.oneTime.isChecked()){
             //goal no recursion
+            goal = new Goal(null, title, -1);
         }
         else if(view.daily.isChecked()){
             //goal daily recursion
+            goal = new Goal(null, title, -1);
+            goal.setRecursionType("daily");
         }
         else if(view.weekly.isChecked()){
             //goal weekly recursion
+            goal = new Goal(null, title, -1);
+            goal.setRecursionType("weekly");
+            goal.setDate(String.valueOf(new SimpleDateFormat("EEEE").format(cal.getTime())));
         }
         else if(view.monthly.isChecked()){
             //goal monthly recursion
+            goal = new Goal(null, title, -1);
+            goal.setRecursionType("monthly");
+            goal.setDate(String.valueOf(new SimpleDateFormat("ddEEEE").format(cal.getTime())));
         }
-        else if(view.yearly.isChecked()){
+        else{
             //goal yearly recursion
+            goal = new Goal(null, title, -1);
+            goal.setRecursionType("yearly");
+            goal.setDate(String.valueOf(new SimpleDateFormat("ddMM").format(cal.getTime())));
         }
-        var goal = new Goal(null, title, -1);
-
         activityModel.endOfIncompleted(goal);
         dialog.dismiss();
     }
