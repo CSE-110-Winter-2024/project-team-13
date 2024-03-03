@@ -6,6 +6,7 @@ import static androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.APPLI
 
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
+import edu.ucsd.cse110.successorator.lib.domain.GoalList;
 import edu.ucsd.cse110.successorator.lib.domain.GoalRepository;
 import edu.ucsd.cse110.successorator.lib.util.Subject;
 import edu.ucsd.cse110.successorator.lib.util.SimpleSubject;
@@ -92,10 +94,15 @@ public class MainViewModel extends ViewModel {
         goalRepository.remove(id);
     }
 
-    public void removeOutdatedCompletedGoals(Calendar today) {
+    public GoalList removeOutdatedCompletedGoals(Calendar today) {
 
         // Get the list of all goals
         List<Goal> allGoals = goalRepository.findAllList();
+        GoalList goals = new GoalList();
+        GoalList repGoals = new GoalList();
+        for(Goal goal : allGoals){
+            goals.append(goal);
+        }
         //  goal.getLastUpdated().getTime().before(today.getTime())
         // Iterate over the goals and remove completed ones that are outdated
 
@@ -114,11 +121,15 @@ public class MainViewModel extends ViewModel {
                 Log.d("Today Date", today.getTime().toString());
 
                 if(today.getTime().after(goalDate.getTime())) {
+                    if(!goal.recursionType().equals("oneTime")) {
+                        repGoals.append(goal);
+                    }
                     remove(goal.id());
                 }
 
             }
         }
+        return repGoals;
     }
 
     public void removeAllGoals() {

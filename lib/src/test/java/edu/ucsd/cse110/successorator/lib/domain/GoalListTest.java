@@ -88,4 +88,26 @@ public class GoalListTest {
         assertEquals(goal, goalList.findGoalById(1));
         assertNull(goalList.findGoalById(99)); // Test for a non-existent ID
     }
+
+    @Test
+    public void has(){
+        GoalList goalList = new GoalList();
+
+        Goal goal = new Goal(1, "title", 1);
+        goalList.append(goal);
+
+        Goal goal1 = new Goal(2, "title1", 2);
+        goal1.setRecursionType("weekly");
+        goal1.setDate("Thursday");
+        goalList.append(goal1);
+
+        Goal goaltest = new Goal(3, "title1", 3);
+        goaltest.setRecursionType("weekly");
+        goaltest.setDate("Thursday");
+
+        assertTrue(goalList.has(goal1));
+        assertTrue(goalList.has(goaltest));
+        goaltest.setDate("Wednesday");
+        assertFalse(goalList.has(goaltest));
+    }
 }

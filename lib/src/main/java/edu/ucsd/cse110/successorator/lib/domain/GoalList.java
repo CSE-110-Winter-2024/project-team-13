@@ -50,4 +50,15 @@ public class GoalList {
                 .findFirst()
                 .orElse(null);
     }
+
+    public boolean has(Goal hasGoal){
+        for(Goal goal:list){
+            if(goal.title().equals(hasGoal.title())
+                    && goal.recursionType().equals(hasGoal.recursionType())
+                    && goal.date().equals(hasGoal.date())){
+                return true;
+            }
+        }
+        return false;
+    }
 }
