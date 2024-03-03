@@ -44,35 +44,28 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
             var layoutInflater = LayoutInflater.from(getContext());
             binding = ListItemGoalBinding.inflate(layoutInflater, parent, false);
         }
-        //show one time goals and hide recursing goals
-        if(goal.recursionType() == null){
-            goal.setRecursionType("oneTime");
-            goal.setDate("0");
+        var goalTitle = binding.goalTitle;
+        goalTitle.setText(goal.title());
+        if (goal.isCompleted()) {
+            goalTitle.setPaintFlags(goalTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        } else {
+            goalTitle.setPaintFlags(goalTitle.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
         }
-        if(goal.recursionType().equals("oneTime")) {
-            var goalTitle = binding.goalTitle;
-            goalTitle.setText(goal.title());
-            if (goal.isCompleted()) {
-                goalTitle.setPaintFlags(goalTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+        goalTitle.setOnClickListener(v -> {
+            // https://www.codingdemos.com/android-strikethrough-text/
+            if (!goal.isCompleted()) {
+                goal.setIsCompleted(true);
+                activityModel.remove(goal.id());
+                activityModel.append(goal);
+
             } else {
-                goalTitle.setPaintFlags(goalTitle.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+                goal.setIsCompleted(false);
+                goal.setLastUpdated(Calendar.getInstance());
+                activityModel.remove(goal.id());
+                activityModel.endOfIncompleted(goal);
             }
-
-            goalTitle.setOnClickListener(v -> {
-                // https://www.codingdemos.com/android-strikethrough-text/
-                if (!goal.isCompleted()) {
-                    goal.setIsCompleted(true);
-                    activityModel.remove(goal.id());
-                    activityModel.append(goal);
-
-                } else {
-                    goal.setIsCompleted(false);
-                    goal.setLastUpdated(Calendar.getInstance());
-                    activityModel.remove(goal.id());
-                    activityModel.endOfIncompleted(goal);
-                }
-            });
-        }
+        });
 
 
         return binding.getRoot();

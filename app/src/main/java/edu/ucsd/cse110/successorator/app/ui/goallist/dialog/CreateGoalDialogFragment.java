@@ -119,7 +119,6 @@ public class CreateGoalDialogFragment extends DialogFragment {
             goal.setRecursionType("yearly");
             goal.setDate(String.valueOf(new SimpleDateFormat("ddMM").format(cal.getTime())));
         }
-
         activityModel.endOfIncompleted(goal);
         dialog.dismiss();
     }

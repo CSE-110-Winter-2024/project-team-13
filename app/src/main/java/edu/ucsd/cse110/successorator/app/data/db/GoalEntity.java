@@ -47,8 +47,8 @@ public class GoalEntity {
         card.id = goal.id();
         card.isCompleted = goal.isCompleted();
         card.lastUpdated = goal.getLastUpdated().getTimeInMillis();
-        card.recursionType = "oneTime";
-        card.date = "0";
+        card.recursionType = goal.recursionType();
+        card.date = goal.date();
         return card;
     }
 
@@ -58,8 +58,8 @@ public class GoalEntity {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(lastUpdated);
         goal.setLastUpdated(calendar);
-        goal.setRecursionType("oneTime");
-        goal.setDate("0");
+        goal.setRecursionType(recursionType);
+        goal.setDate(date);
         return goal;
     }
 }

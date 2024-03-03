@@ -105,8 +105,9 @@ public class GoalListTest {
         goaltest.setRecursionType("weekly");
         goaltest.setDate("Thursday");
 
+        assertTrue(goalList.has(goal1));
         assertTrue(goalList.has(goaltest));
-        goaltest.setDate("Thurs");
+        goaltest.setDate("Wednesday");
         assertFalse(goalList.has(goaltest));
     }
 }

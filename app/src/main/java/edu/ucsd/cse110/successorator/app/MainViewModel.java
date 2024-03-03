@@ -94,11 +94,12 @@ public class MainViewModel extends ViewModel {
         goalRepository.remove(id);
     }
 
-    public void removeOutdatedCompletedGoals(Calendar today) {
+    public GoalList removeOutdatedCompletedGoals(Calendar today) {
 
         // Get the list of all goals
         List<Goal> allGoals = goalRepository.findAllList();
         GoalList goals = new GoalList();
+        GoalList repGoals = new GoalList();
         for(Goal goal : allGoals){
             goals.append(goal);
         }
@@ -106,7 +107,7 @@ public class MainViewModel extends ViewModel {
         // Iterate over the goals and remove completed ones that are outdated
 
         for (Goal goal : allGoals) {
-            if (goal.isCompleted() && goal.recursionType().equals("oneTime")) {
+            if (goal.isCompleted()) {
                 Calendar goalDate = goal.getLastUpdated();
                 if(!(goalDate.get(Calendar.HOUR_OF_DAY) < 2)) {
                     goalDate.add(Calendar.DAY_OF_MONTH, 1);
@@ -120,32 +121,15 @@ public class MainViewModel extends ViewModel {
                 Log.d("Today Date", today.getTime().toString());
 
                 if(today.getTime().after(goalDate.getTime())) {
+                    if(!goal.recursionType().equals("oneTime")) {
+                        repGoals.append(goal);
+                    }
                     remove(goal.id());
                 }
 
             }
-            else if(goal.recursionType().equals("daily") && !goals.has(goal)){
-                endOfIncompleted(new Goal(null, goal.title(), -1));
-            }
-            else if(goal.recursionType().equals("weekly") && !goals.has(goal)
-                    && goal.date().equals(
-                            String.valueOf(new SimpleDateFormat("EEEE").format(today.getTime())))){
-                endOfIncompleted(new Goal(null, goal.title(), -1));
-            }
-            else if(goal.recursionType().equals("monthly") && !goals.has(goal)){
-                String numRepeated = String.valueOf(((today.get(Calendar.DAY_OF_MONTH))-1/7)+1);
-                String day = String.valueOf(new SimpleDateFormat("EEEE").format(today.getTime()));
-                if(numRepeated.equals(goal.date().substring(0,2))
-                        && day.equals(goal.date().substring(2))){
-                    endOfIncompleted(new Goal(null, goal.title(), -1));
-                }
-            }
-            else if(goal.recursionType().equals("yearly") && !goals.has(goal)
-                    && goal.date().equals(
-                            String.valueOf(new SimpleDateFormat("ddMM").format(today.getTime())))){
-                endOfIncompleted(new Goal(null, goal.title(), -1));
-            }
         }
+        return repGoals;
     }
 
     public void removeAllGoals() {
