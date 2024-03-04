@@ -5,6 +5,7 @@ import androidx.lifecycle.viewmodel.ViewModelInitializer;
 import static androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY;
 
 import android.util.Log;
+import android.view.View;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -94,15 +95,10 @@ public class MainViewModel extends ViewModel {
         goalRepository.remove(id);
     }
 
-    public GoalList removeOutdatedCompletedGoals(Calendar today) {
+    public void removeOutdatedCompletedGoals(Calendar today) {
 
         // Get the list of all goals
         List<Goal> allGoals = goalRepository.findAllList();
-        GoalList goals = new GoalList();
-        GoalList repGoals = new GoalList();
-        for(Goal goal : allGoals){
-            goals.append(goal);
-        }
         //  goal.getLastUpdated().getTime().before(today.getTime())
         // Iterate over the goals and remove completed ones that are outdated
 
@@ -119,17 +115,55 @@ public class MainViewModel extends ViewModel {
 
                 Log.d("Expiration Date", goalDate.getTime().toString());
                 Log.d("Today Date", today.getTime().toString());
-
-                if(today.getTime().after(goalDate.getTime())) {
-                    if(!goal.recursionType().equals("oneTime")) {
-                        repGoals.append(goal);
+                if(!goal.date().equals("0") && goal.visibility() == View.GONE){
+                    if (goal.recursionType().equals("weekly")) {
+                        if (goal.date().equals(
+                                String.valueOf(new SimpleDateFormat("EEEE").format(today.getTime())))) {
+                            goal.setIsCompleted(false);
+                            goal.setLastUpdated(Calendar.getInstance());
+                            goal.setVisibility(View.VISIBLE);
+                            remove(goal.id());
+                            endOfIncompleted(goal);
+                        }
+                    } else if (goal.recursionType().equals("monthly")) {
+                        String numRepeated = String.valueOf(((today.get(Calendar.DAY_OF_MONTH)) - 1 / 7) + 1);
+                        String day = String.valueOf(new SimpleDateFormat("EEEE").format(today.getTime()));
+                        if (numRepeated.equals(goal.date().substring(0, 2))
+                                && day.equals(goal.date().substring(2))) {
+                            goal.setIsCompleted(false);
+                            goal.setLastUpdated(Calendar.getInstance());
+                            goal.setVisibility(View.VISIBLE);
+                            remove(goal.id());
+                            endOfIncompleted(goal);
+                        }
+                    } else if (goal.recursionType().equals("yearly")
+                            && goal.date().equals(
+                            String.valueOf(new SimpleDateFormat("ddMM").format(today.getTime())))) {
+                        goal.setIsCompleted(false);
+                        goal.setLastUpdated(Calendar.getInstance());
+                        goal.setVisibility(View.VISIBLE);
+                        remove(goal.id());
+                        endOfIncompleted(goal);
                     }
-                    remove(goal.id());
                 }
-
+                else if(today.getTime().after(goalDate.getTime())) {
+                    if(!goal.date().equals("0")) {
+                        goal.setVisibility(View.GONE);
+                        remove(goal.id());
+                        append(goal);
+                    }
+                    else if(goal.recursionType().equals("daily")){
+                        goal.setIsCompleted(false);
+                        goal.setLastUpdated(Calendar.getInstance());
+                        remove(goal.id());
+                        endOfIncompleted(goal);
+                    }
+                    else {
+                        remove(goal.id());
+                    }
+                }
             }
         }
-        return repGoals;
     }
 
     public void removeAllGoals() {
