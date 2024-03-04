@@ -126,9 +126,15 @@ public class MainViewModel extends ViewModel {
                             endOfIncompleted(goal);
                         }
                     } else if (goal.recursionType().equals("monthly")) {
-                        String numRepeated = String.valueOf(((today.get(Calendar.DAY_OF_MONTH)) - 1 / 7) + 1);
+                        int numRepeated = (((today.get(Calendar.DAY_OF_MONTH)) - 1) / 7) + 1;
                         String day = String.valueOf(new SimpleDateFormat("EEEE").format(today.getTime()));
-                        if (numRepeated.equals(goal.date().substring(0, 2))
+                        int goalRepeated = Integer.parseInt(goal.date().substring(0,2));
+                        goalRepeated = ((goalRepeated - 1) / 7) + 1;
+                        System.out.println(goalRepeated);
+                        System.out.println(numRepeated);
+                        System.out.println(day);
+                        System.out.println(goal.date().substring(2));
+                        if (numRepeated == goalRepeated
                                 && day.equals(goal.date().substring(2))) {
                             goal.setIsCompleted(false);
                             goal.setLastUpdated(Calendar.getInstance());
