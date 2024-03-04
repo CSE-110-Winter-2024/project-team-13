@@ -24,7 +24,7 @@ import edu.ucsd.cse110.successorator.lib.util.SimpleSubject;
 public class MainViewModel extends ViewModel {
     // Domain state (true "Model" state)
     private final GoalRepository goalRepository;
-
+    private static Calendar cal;
     // UI state
     private final SimpleSubject<List<Goal>> orderedGoals;
     private final SimpleSubject<Goal> topGoal;
@@ -46,7 +46,7 @@ public class MainViewModel extends ViewModel {
         this.orderedGoals = new SimpleSubject<>();
         this.topGoal = new SimpleSubject<>();
         this.displayedText = new SimpleSubject<>();
-
+        cal = Calendar.getInstance();
         // When the list of cards changes (or is first loaded), reset the ordering.
         goalRepository.findAll().observe(goals -> {
             if (goals == null) return; // not ready yet, ignore
@@ -94,14 +94,16 @@ public class MainViewModel extends ViewModel {
     public void remove(int id) {
         goalRepository.remove(id);
     }
-
+    public static Calendar getCal(){
+        return cal;
+    }
     public void removeOutdatedCompletedGoals(Calendar today) {
 
         // Get the list of all goals
         List<Goal> allGoals = goalRepository.findAllList();
         //  goal.getLastUpdated().getTime().before(today.getTime())
         // Iterate over the goals and remove completed ones that are outdated
-
+        cal = today;
         for (Goal goal : allGoals) {
             if (goal.isCompleted()) {
                 Calendar goalDate = goal.getLastUpdated();
