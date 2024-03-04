@@ -46,7 +46,10 @@ public class CreateGoalDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         this.view = FragmentDialogCreateGoalBinding.inflate(getLayoutInflater());
-        Calendar cal = Calendar.getInstance();
+        Calendar cal = MainViewModel.getCal();
+        if(cal == null){
+            cal = Calendar.getInstance();
+        }
         //Creates text with day of the week
         String weeklyMsg = "Weekly on " +
                 String.valueOf(new SimpleDateFormat("EEEE").format(cal.getTime()));
