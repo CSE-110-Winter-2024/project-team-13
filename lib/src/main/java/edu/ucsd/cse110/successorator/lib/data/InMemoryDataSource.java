@@ -23,21 +23,21 @@ public class InMemoryDataSource {
 
     public InMemoryDataSource() {
     }
-
-    public final static List<Goal> DEFAULT_GOALS = List.of(
+// Commenting out as app should have no goals on startup, uncomment out if wanting to test DEFAULT_GOALS
+//    public final static List<Goal> DEFAULT_GOALS = List.of(
 //            new Goal(0, "Wake Up", 0),
 //            new Goal(1, "Brush Teeth", 1),
 //            new Goal(2, "Eat Breakfast", 2),
 //            new Goal(3, "Go to Class", 3),
 //            new Goal(4, "Go to Work", 4),
 //            new Goal(5, "Do Homework", 5)
-    );
-
-    public static InMemoryDataSource fromDefault() {
-        var data = new InMemoryDataSource();
-        data.putGoals(DEFAULT_GOALS);
-        return data;
-    }
+//    );
+//
+//    public static InMemoryDataSource fromDefault() {
+//        var data = new InMemoryDataSource();
+//        data.putGoals(DEFAULT_GOALS);
+//        return data;
+//    }
 
     public List<Goal> getGoals() {
         return List.copyOf(goals.values());
