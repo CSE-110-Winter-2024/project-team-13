@@ -1,35 +1,25 @@
 package edu.ucsd.cse110.successorator.app;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
+import java.text.SimpleDateFormat;
 
 import edu.ucsd.cse110.successorator.app.databinding.ActivityMainBinding;
-import edu.ucsd.cse110.successorator.app.ui.goal.GoalFragment;
-import edu.ucsd.cse110.successorator.app.ui.goallist.GoalListFragment;
-import edu.ucsd.cse110.successorator.app.ui.goallist.dialog.CreateGoalDialogFragment;
-import edu.ucsd.cse110.successorator.lib.data.InMemoryDataSource;
-import edu.ucsd.cse110.successorator.lib.domain.Goal;
 import edu.ucsd.cse110.successorator.lib.domain.GoalList;
-import edu.ucsd.cse110.successorator.lib.domain.GoalRepository;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding view;
     private Calendar fakeDate = Calendar.getInstance();
+    private GoalList  repGoals = new GoalList();
+    private TextView dateTextView;
+    private MainViewModel mainViewModel;
+    private Thread thread;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,19 +30,17 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(view.getRoot());
 
-        TextView dateTextView = findViewById(R.id.date);
+        dateTextView = findViewById(R.id.date);
 
         view.dayforward.setOnClickListener(v -> {
-            if(!(fakeDate.get(Calendar.HOUR_OF_DAY) < 2)) {
-                fakeDate.add(Calendar.DAY_OF_MONTH, 1);
-            }
+            fakeDate.add(Calendar.DAY_OF_MONTH, 1);
             fakeDate.set(Calendar.HOUR_OF_DAY, 2);
             fakeDate.set(Calendar.MINUTE, 0);
             fakeDate.set(Calendar.SECOND, 0);
             fakeDate.set(Calendar.MILLISECOND, 0);
         });
 
-        MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         mainViewModel.removeOutdatedCompletedGoals(Calendar.getInstance());
         Thread thread = new Thread() {
             @Override
@@ -80,52 +68,28 @@ public class MainActivity extends AppCompatActivity {
                 } catch (InterruptedException e) { }
             }
         };
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        fakeDate = Calendar.getInstance();
+        MockDate mockDate = new MockDate(fakeDate, dateTextView, mainViewModel, repGoals);
+        thread = mockDate.getMockDate();
         thread.start();
+    }
 
-
-//        Debug Purposes: Remove All Goals
-//        MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
-//        // Use an ExecutorService to run the cleanup method in the background
-//        ExecutorService executor = Executors.newSingleThreadExecutor();
-//        executor.execute(mainViewModel::removeAllGoals);
+    @Override
+    public void onPause() {
+        super.onPause();
+        thread.interrupt();
 
     }
-    public void goalCheck(GoalList goals, Calendar today){
-        for(Goal goal : goals.getList()) {
-            MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
-            if (goal.recursionType().equals("daily")) {
-                goal.setIsCompleted(false);
-                goal.setLastUpdated(Calendar.getInstance());
-                mainViewModel.endOfIncompleted(goal);
-                goals.remove(goal);
-            } else if (goal.recursionType().equals("weekly")) {
-                if (goal.date().equals(
-                        String.valueOf(new SimpleDateFormat("EEEE").format(today.getTime())))) {
-                    goal.setIsCompleted(false);
-                    goal.setLastUpdated(Calendar.getInstance());
-                    mainViewModel.endOfIncompleted(goal);
-                    goals.remove(goal);
-                }
-            } else if (goal.recursionType().equals("monthly")) {
-                String numRepeated = String.valueOf(((today.get(Calendar.DAY_OF_MONTH)) - 1 / 7) + 1);
-                String day = String.valueOf(new SimpleDateFormat("EEEE").format(today.getTime()));
-                if (numRepeated.equals(goal.date().substring(0, 2))
-                        && day.equals(goal.date().substring(2))) {
-                    goal.setIsCompleted(false);
-                    goal.setLastUpdated(Calendar.getInstance());
-                    mainViewModel.endOfIncompleted(goal);
-                    goals.remove(goal);
-                }
-            } else if (goal.recursionType().equals("yearly")
-                    && goal.date().equals(
-                    String.valueOf(new SimpleDateFormat("ddMM").format(today.getTime())))) {
-                    goal.setIsCompleted(false);
-                    goal.setLastUpdated(Calendar.getInstance());
-                    mainViewModel.endOfIncompleted(goal);
-                    goals.remove(goal);
-            }
-        }
+    @Override
+    public void onStop() {
+        super.onStop();
+        thread.interrupt();
+
     }
 
 //    @Override

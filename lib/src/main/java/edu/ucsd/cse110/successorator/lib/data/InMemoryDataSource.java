@@ -25,12 +25,12 @@ public class InMemoryDataSource {
     }
 
     public final static List<Goal> DEFAULT_GOALS = List.of(
-            new Goal(0, "Wake Up", 0),
-            new Goal(1, "Brush Teeth", 1),
-            new Goal(2, "Eat Breakfast", 2),
-            new Goal(3, "Go to Class", 3),
-            new Goal(4, "Go to Work", 4),
-            new Goal(5, "Do Homework", 5)
+//            new Goal(0, "Wake Up", 0),
+//            new Goal(1, "Brush Teeth", 1),
+//            new Goal(2, "Eat Breakfast", 2),
+//            new Goal(3, "Go to Class", 3),
+//            new Goal(4, "Go to Work", 4),
+//            new Goal(5, "Do Homework", 5)
     );
 
     public static InMemoryDataSource fromDefault() {
