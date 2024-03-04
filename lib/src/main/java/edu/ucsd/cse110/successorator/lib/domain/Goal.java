@@ -14,6 +14,7 @@ public class Goal {
     private @NonNull String date;
     private final @NonNull Integer sortOrder;
     private Calendar lastUpdated;
+    private int visibility;
 
 
     public Goal(@Nullable Integer id, @NonNull String title, @NonNull Integer sortOrder) {
@@ -24,6 +25,7 @@ public class Goal {
         this.lastUpdated = Calendar.getInstance();
         this.recursionType = "oneTime";
         this.date = "0";
+        this.visibility = 0;
     }
 
     public @Nullable Integer id() {
@@ -39,6 +41,8 @@ public class Goal {
     public String recursionType(){ return recursionType; }
 
     public String date(){ return date; }
+
+    public int visibility(){ return visibility; }
 
     public boolean isCompleted() {
         return isCompleted;
@@ -66,7 +70,8 @@ public class Goal {
                 && Objects.equals(title, goal.title) && Objects.equals(sortOrder, goal.sortOrder)
                 && Objects.equals(lastUpdated, goal.lastUpdated)
                 && Objects.equals(recursionType, goal.recursionType)
-                && Objects.equals(date, goal.date);
+                && Objects.equals(date, goal.date)
+                && Objects.equals(visibility, goal.visibility);
     }
 
     @Override
@@ -84,4 +89,6 @@ public class Goal {
     public void setRecursionType(@NonNull String recursionType){ this.recursionType = recursionType; }
 
     public void setDate(@NonNull String date){ this.date = date; }
+    public int setVisibility(int vis){ this.visibility = vis;
+    return visibility; }
 }

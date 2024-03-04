@@ -33,6 +33,9 @@ public class GoalEntity {
     @ColumnInfo(name = "date")
     public String date;
 
+    @ColumnInfo(name = "visibility")
+    public int visibility;
+
     GoalEntity(@NonNull String title, int sortOrder) {
         this.title = title;
         this.sortOrder = sortOrder;
@@ -40,6 +43,7 @@ public class GoalEntity {
         this.lastUpdated = Calendar.getInstance().getTimeInMillis();
         this.recursionType = "oneTime";
         this.date = "0";
+        this.visibility = 0;
     }
 
     public static GoalEntity fromGoal(@NonNull Goal goal) {
@@ -49,6 +53,7 @@ public class GoalEntity {
         card.lastUpdated = goal.getLastUpdated().getTimeInMillis();
         card.recursionType = goal.recursionType();
         card.date = goal.date();
+        card.visibility = goal.visibility();
         return card;
     }
 
@@ -60,6 +65,7 @@ public class GoalEntity {
         goal.setLastUpdated(calendar);
         goal.setRecursionType(recursionType);
         goal.setDate(date);
+        goal.setVisibility(visibility);
         return goal;
     }
 }
