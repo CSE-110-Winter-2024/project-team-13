@@ -28,7 +28,7 @@ public class SuccessoratorApplication extends Application {
         var isFirstRun = sharedPreferences.getBoolean("isFirstRun", true);
 
         if(isFirstRun && database.goalsDao().count() == 0) {
-            // Commenting out as app should have no goals on startup, uncomment out if wanting to test DEFAULT_GOALS
+            // Commenting out as app should have no goals on startup, uncomment out to test DEFAULT_GOALS
             //goalRepository.save(InMemoryDataSource.DEFAULT_GOALS);
 
             sharedPreferences.edit()
