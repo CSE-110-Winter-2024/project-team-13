@@ -39,22 +39,10 @@ public class MockDate extends AppCompatActivity {
                                 dateTextView.setText(String.valueOf(new SimpleDateFormat("EEEE, M/dd").format(fakeDate.getTime())));
                                 if (fakeDate.get(Calendar.HOUR_OF_DAY) == 2 && fakeDate.get(Calendar.MINUTE) == 0 && fakeDate.get(Calendar.SECOND) == 0) {
                                     fakeDate.add(Calendar.SECOND, 1);
-                                    GoalList add = mainViewModel.removeOutdatedCompletedGoals(fakeDate);
-                                    for (Goal goal : add.getList()) {
-                                        if (!repGoals.has(goal)) {
-                                            repGoals.append(goal);
-                                        }
-                                    }
-                                    goalCheck.goalCheck(repGoals, fakeDate, mainViewModel);
+                                    mainViewModel.removeOutdatedCompletedGoals(fakeDate);
                                 }
                                 if (realDate.get(Calendar.HOUR_OF_DAY) == 2 && realDate.get(Calendar.MINUTE) == 0 && realDate.get(Calendar.SECOND) == 0) {
-                                    GoalList add = mainViewModel.removeOutdatedCompletedGoals(realDate);
-                                    for (Goal goal : add.getList()) {
-                                        if (!repGoals.has(goal)) {
-                                            repGoals.append(goal);
-                                        }
-                                    }
-                                    goalCheck.goalCheck(repGoals, fakeDate, mainViewModel);
+                                    mainViewModel.removeOutdatedCompletedGoals(realDate);
                                 }
                             }
                         });

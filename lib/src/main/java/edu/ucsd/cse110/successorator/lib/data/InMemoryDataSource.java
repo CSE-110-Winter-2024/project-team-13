@@ -23,6 +23,7 @@ public class InMemoryDataSource {
 
     public InMemoryDataSource() {
     }
+
 // Commenting out as app should have no goals on startup, uncomment out if wanting to test DEFAULT_GOALS
 //    public final static List<Goal> DEFAULT_GOALS = List.of(
 //            new Goal(0, "Wake Up", 0),
