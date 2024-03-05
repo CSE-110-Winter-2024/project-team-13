@@ -23,5 +23,7 @@ public interface GoalRepository {
 
     void endOfIncompleted(Goal goal);
 
+    void startOfRecursive(Goal goal);
+
     void removeAll();
 }
