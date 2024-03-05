@@ -33,6 +33,8 @@ public class GoalListFragment extends Fragment {
 
     Spinner viewSpinner;
 
+    TextView testText;
+
     public GoalListFragment() {
     }
 
@@ -67,6 +69,10 @@ public class GoalListFragment extends Fragment {
             adapter.addAll(new ArrayList<>(goals));
             adapter.notifyDataSetChanged();
         });
+
+
+
+
     }
 
     @Nullable
@@ -79,9 +85,34 @@ public class GoalListFragment extends Fragment {
         view.goalList.setAdapter(adapter);
         initSpinner();
 
+//        viewSpinner.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String viewState = viewSpinner.getSelectedItem().toString();
+//            }
+//        });
+
         view.createGoalButton.setOnClickListener(v -> {
             var dialogFragment = CreateGoalDialogFragment.newInstance();
             dialogFragment.show(getParentFragmentManager(), "CreateGoalDialogFragment");
+        });
+
+        testText = (TextView) view.getRoot().findViewById(R.id.testSpinner);
+
+        viewSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int pos, long id) {
+                // An item is selected. You can retrieve the selected item using
+                // parent.getItemAtPosition(pos).
+                Log.d("Spinner", "onItemSelected: " + parent.getItemAtPosition(pos).toString());
+                testText.setText(parent.getItemAtPosition(pos).toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // nothing
+            }
         });
 
         return view.getRoot();
@@ -100,4 +131,5 @@ public class GoalListFragment extends Fragment {
 //        viewSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //        });
     }
+
 }

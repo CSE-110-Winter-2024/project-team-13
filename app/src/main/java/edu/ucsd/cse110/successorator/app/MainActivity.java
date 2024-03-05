@@ -27,7 +27,7 @@ import edu.ucsd.cse110.successorator.lib.domain.GoalRepository;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding view;
-    private Calendar fakeDate = Calendar.getInstance();
+
 
 
     @Override
@@ -39,49 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(view.getRoot());
 
-        TextView dateTextView = findViewById(R.id.date);
 
-        view.dayforward.setOnClickListener(v -> {
-            if(!(fakeDate.get(Calendar.HOUR_OF_DAY) < 2)) {
-                fakeDate.add(Calendar.DAY_OF_MONTH, 1);
-            }
-            fakeDate.set(Calendar.HOUR_OF_DAY, 2);
-            fakeDate.set(Calendar.MINUTE, 0);
-            fakeDate.set(Calendar.SECOND, 0);
-            fakeDate.set(Calendar.MILLISECOND, 0);
-        });
-
-        MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
-        mainViewModel.removeOutdatedCompletedGoals(Calendar.getInstance());
-
-        Thread thread = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    while (!isInterrupted()) {
-                        Thread.sleep(1000);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Calendar realDate = Calendar.getInstance();
-                                dateTextView.setText(String.valueOf(new SimpleDateFormat("EEEE, M/dd").format(fakeDate.getTime())));
-                                if (fakeDate.get(Calendar.HOUR_OF_DAY) == 2 && fakeDate.get(Calendar.MINUTE) == 0 && fakeDate.get(Calendar.SECOND) == 0) {
-                                    fakeDate.add(Calendar.SECOND, 1);
-                                    mainViewModel.removeOutdatedCompletedGoals(fakeDate);
-                                }
-                                if (realDate.get(Calendar.HOUR_OF_DAY) == 2 && realDate.get(Calendar.MINUTE) == 0 && realDate.get(Calendar.SECOND) == 0) {
-                                    mainViewModel.removeOutdatedCompletedGoals(realDate);
-                                }
-
-
-                            }
-                        });
-                    }
-                } catch (InterruptedException e) { }
-            }
-        };
-
-        thread.start();
 
 
 //        Debug Purposes: Remove All Goals
