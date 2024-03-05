@@ -36,7 +36,7 @@ public class MockDate extends AppCompatActivity {
                             @Override
                             public void run() {
                                 Calendar realDate = Calendar.getInstance();
-                                dateTextView.setText(String.valueOf(new SimpleDateFormat("EEEE, M/dd hh.mm.ss").format(fakeDate.getTime())));
+                                dateTextView.setText(String.valueOf(new SimpleDateFormat("EEEE, M/dd").format(fakeDate.getTime())));
                                 if (fakeDate.get(Calendar.HOUR_OF_DAY) == 2 && fakeDate.get(Calendar.MINUTE) == 0 && fakeDate.get(Calendar.SECOND) == 0) {
                                     fakeDate.add(Calendar.SECOND, 1);
                                     mainViewModel.removeOutdatedCompletedGoals(fakeDate);
