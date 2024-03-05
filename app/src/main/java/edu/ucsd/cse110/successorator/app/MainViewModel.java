@@ -126,7 +126,7 @@ public class MainViewModel extends ViewModel {
                         if (goal.date().equals(
                                 String.valueOf(new SimpleDateFormat("EEEE").format(today.getTime())))) {
                             goal.setIsCompleted(false);
-                            goal.setLastUpdated(Calendar.getInstance());
+                            goal.setLastUpdated(today);
                             goal.setVisibility(View.VISIBLE);
                             remove(goal.id());
                             endOfIncompleted(goal);
@@ -143,7 +143,7 @@ public class MainViewModel extends ViewModel {
                         if (numRepeated == goalRepeated
                                 && day.equals(goal.date().substring(2))) {
                             goal.setIsCompleted(false);
-                            goal.setLastUpdated(Calendar.getInstance());
+                            goal.setLastUpdated(today);
                             goal.setVisibility(View.VISIBLE);
                             remove(goal.id());
                             endOfIncompleted(goal);
@@ -152,7 +152,7 @@ public class MainViewModel extends ViewModel {
                             && goal.date().equals(
                             String.valueOf(new SimpleDateFormat("ddMM").format(today.getTime())))) {
                         goal.setIsCompleted(false);
-                        goal.setLastUpdated(Calendar.getInstance());
+                        goal.setLastUpdated(today);
                         goal.setVisibility(View.VISIBLE);
                         remove(goal.id());
                         endOfIncompleted(goal);
@@ -166,7 +166,7 @@ public class MainViewModel extends ViewModel {
                     }
                     else if(goal.recursionType().equals("daily")){
                         goal.setIsCompleted(false);
-                        goal.setLastUpdated(Calendar.getInstance());
+                        goal.setLastUpdated(today);
                         remove(goal.id());
                         endOfIncompleted(goal);
                     }
