@@ -46,7 +46,10 @@ public class CreateGoalDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         this.view = FragmentDialogCreateGoalBinding.inflate(getLayoutInflater());
-        Calendar cal = Calendar.getInstance();
+        Calendar cal = MainViewModel.getCal();
+        if(cal == null){
+            cal = Calendar.getInstance();
+        }
         //Creates text with day of the week
         String weeklyMsg = "Weekly on " +
                 String.valueOf(new SimpleDateFormat("EEEE").format(cal.getTime()));
@@ -77,7 +80,7 @@ public class CreateGoalDialogFragment extends DialogFragment {
         }
         view.monthly.setText(monthlyMsg);
         //Creates text with month and year
-        String yearlyMsg = "Yearly on " + String.valueOf(new SimpleDateFormat("dd/MM/yy").format(cal.getTime()));
+        String yearlyMsg = "Yearly on " + String.valueOf(new SimpleDateFormat("MM/dd").format(cal.getTime()));
         view.yearly.setText(yearlyMsg);
         return new AlertDialog.Builder(getActivity())
             .setTitle("New Goal")
@@ -90,7 +93,7 @@ public class CreateGoalDialogFragment extends DialogFragment {
 
     private void onPositiveButtonClick(DialogInterface dialog, int which) {
         var title = view.goalTitleText.getText().toString();
-        Calendar cal = Calendar.getInstance();
+        Calendar cal = MainViewModel.getCal();
         Goal goal;
         if(view.oneTime.isChecked()){
             //goal no recursion
