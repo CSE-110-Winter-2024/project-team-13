@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
 import edu.ucsd.cse110.successorator.lib.domain.GoalList;
 
@@ -18,13 +19,22 @@ public class MockDate extends AppCompatActivity {
     private GoalList repGoals;
     private GoalCheck goalCheck;
 
+    private String viewSetting;
+
     public MockDate(Calendar fakeDate, TextView dateTextView, MainViewModel mainViewModel, GoalList repGoals) {
         this.fakeDate = fakeDate;
         this.dateTextView = dateTextView;
         this.mainViewModel = mainViewModel;
         this.repGoals = repGoals;
         this.goalCheck = new GoalCheck();
+        this.viewSetting = "Today";
     }
+
+    public void setViewSetting(String viewSetting) {
+        this.viewSetting = viewSetting;
+    }
+
+
     public Thread getMockDate() {
         Thread mockDate = new Thread() {
             @Override

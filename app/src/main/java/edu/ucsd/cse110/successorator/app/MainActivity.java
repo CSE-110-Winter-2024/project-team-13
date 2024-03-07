@@ -1,6 +1,10 @@
 package edu.ucsd.cse110.successorator.app;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -18,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private Calendar fakeDate = Calendar.getInstance();
     private GoalList  repGoals = new GoalList();
     private TextView dateTextView;
+
+    private Spinner viewSpinnerView;
     private MainViewModel mainViewModel;
     private Thread thread;
 
@@ -31,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(view.getRoot());
 
         dateTextView = findViewById(R.id.date);
+        viewSpinnerView = findViewById(R.id.view_spinner);
+        TextView testSpinner = findViewById(R.id.testSpinner);
 
         view.dayforward.setOnClickListener(v -> {
             fakeDate.add(Calendar.DAY_OF_MONTH, 1);
@@ -42,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
 
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         mainViewModel.removeOutdatedCompletedGoals(Calendar.getInstance());
+        ViewSpinner viewSpinner = new ViewSpinner(this, viewSpinnerView, mainViewModel, testSpinner);
+
+        viewSpinnerView.setOnItemSelectedListener(viewSpinner.eventHandler());
     }
 
     @Override

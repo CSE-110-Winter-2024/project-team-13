@@ -31,10 +31,6 @@ public class GoalListFragment extends Fragment {
     private FragmentGoalListBinding view;
     private GoalListAdapter adapter;
 
-    Spinner viewSpinner;
-
-    TextView testText;
-
     public GoalListFragment() {
     }
 
@@ -80,10 +76,9 @@ public class GoalListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.view = FragmentGoalListBinding.inflate(inflater, container, false);
 
-        viewSpinner = view.getRoot().findViewById(R.id.view_spinner);
+
 
         view.goalList.setAdapter(adapter);
-        initSpinner();
 
 //        viewSpinner.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -97,39 +92,7 @@ public class GoalListFragment extends Fragment {
             dialogFragment.show(getParentFragmentManager(), "CreateGoalDialogFragment");
         });
 
-        testText = (TextView) view.getRoot().findViewById(R.id.date);
-
-        viewSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int pos, long id) {
-                // An item is selected. You can retrieve the selected item using
-                // parent.getItemAtPosition(pos).
-                Log.d("Spinner", "onItemSelected: " + parent.getItemAtPosition(pos).toString());
-                testText.setText(parent.getItemAtPosition(pos).toString());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // nothing
-            }
-        });
-
         return view.getRoot();
-    }
-
-    private void initSpinner() {
-        String[] items = new String[]{
-                "Today, " + getDateFormatted(Calendar.getInstance()), "Tomorrow, " + getDateFormatted(getTomorrow()), "Pending", "Recurring"
-        };
-
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, items);
-
-        ArrayAdapter<CharSequence>adapter=ArrayAdapter.createFromResource(getActivity(), R.array.views, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        viewSpinner.setAdapter(adapter);
-//        viewSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//        });
     }
 
     private String getDateFormatted(Calendar date) {
