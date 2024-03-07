@@ -89,6 +89,10 @@ public class MainViewModel extends ViewModel {
         goalRepository.endOfIncompleted(goal);
     }
 
+    public void startOfRecursive(Goal goal) {
+        goalRepository.startOfRecursive(goal);
+    }
+
     public void prepend(Goal goal){ goalRepository.prepend(goal); }
 
     public void remove(int id) {

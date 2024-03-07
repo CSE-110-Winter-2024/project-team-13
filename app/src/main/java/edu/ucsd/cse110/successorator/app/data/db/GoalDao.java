@@ -73,6 +73,19 @@ public interface GoalDao {
     }
 
     @Transaction
+    default int startOfRecursive(GoalEntity goal, int sOrder) {
+        var maxSortOrder = getMaxSortOrder();
+        var newGoal = new GoalEntity(goal.title,sOrder);
+        shiftSortOrders(sOrder, getMaxSortOrder(), 1);
+        newGoal.isCompleted = goal.isCompleted;
+        newGoal.lastUpdated = goal.lastUpdated;
+        newGoal.recursionType = goal.recursionType;
+        newGoal.date = goal.date;
+        newGoal.visibility = goal.visibility;
+        return Math.toIntExact(insert(newGoal));
+    }
+
+    @Transaction
     default int prepend(GoalEntity goal) {
         shiftSortOrders(getMinSortOrder(), getMaxSortOrder(), 1);
         var newGoal = new GoalEntity(goal.title, getMinSortOrder() - 1);
@@ -82,6 +95,14 @@ public interface GoalDao {
         newGoal.date = goal.date;
         newGoal.visibility = goal.visibility;
         return Math.toIntExact(insert(newGoal));
+    }
+
+    @Transaction
+    default void remove(int id){
+        GoalEntity goal = find(id);
+        int sOrder = goal.sortOrder;
+        delete(id);
+        shiftSortOrders(sOrder+1, getMaxSortOrder(), -1);
     }
 
     @Query("DELETE FROM goals WHERE id = :id")

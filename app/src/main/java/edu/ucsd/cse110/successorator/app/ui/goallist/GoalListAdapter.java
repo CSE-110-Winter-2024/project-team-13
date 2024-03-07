@@ -56,7 +56,7 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
             if (!goal.isCompleted()) {
                 goal.setIsCompleted(true);
                 activityModel.remove(goal.id());
-                activityModel.append(goal);
+                activityModel.startOfRecursive(goal);
 
             } else {
                 goal.setIsCompleted(false);
