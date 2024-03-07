@@ -97,7 +97,7 @@ public class GoalListFragment extends Fragment {
             dialogFragment.show(getParentFragmentManager(), "CreateGoalDialogFragment");
         });
 
-        testText = (TextView) view.getRoot().findViewById(R.id.testSpinner);
+        testText = (TextView) view.getRoot().findViewById(R.id.date);
 
         viewSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
