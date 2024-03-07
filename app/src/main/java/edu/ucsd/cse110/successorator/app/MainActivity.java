@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         fakeDate = Calendar.getInstance();
         mockDate = new MockDate(fakeDate, dateTextView, mainViewModel, repGoals);
-        ViewSpinnerDateUpdater updater = new ViewSpinnerDateUpdater(mockDate);
+        ViewSpinnerDateUpdater updater = new ViewSpinnerDateUpdater(mockDate, mainViewModel);
         ViewSpinner viewSpinner = new ViewSpinner(this, viewSpinnerView, mainViewModel, updater);
         viewSpinnerView.setOnItemSelectedListener(viewSpinner.eventHandler());
         thread = mockDate.getMockDate();

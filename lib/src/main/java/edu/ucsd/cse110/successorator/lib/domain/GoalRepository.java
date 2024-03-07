@@ -11,6 +11,8 @@ public interface GoalRepository {
 
     List<Goal> findAllList();
 
+    List<Goal> getRecursive();
+
     void save(Goal goal);
 
     void save(List<Goal> goals);

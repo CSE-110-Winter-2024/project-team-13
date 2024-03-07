@@ -44,6 +44,13 @@ import edu.ucsd.cse110.successorator.lib.util.Subject;
     }
 
     @Override
+    public List<Goal> getRecursive() {
+        return goalDao.getRecursive().stream()
+                .map(GoalEntity::toGoal)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public void save(Goal goal) {
         goalDao.insert(GoalEntity.fromGoal(goal));
     }

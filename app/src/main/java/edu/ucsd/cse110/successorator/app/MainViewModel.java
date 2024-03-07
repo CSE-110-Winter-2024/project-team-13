@@ -30,6 +30,8 @@ public class MainViewModel extends ViewModel {
     private final SimpleSubject<Goal> topGoal;
     private final SimpleSubject<String> displayedText;
 
+    private SimpleSubject<String> viewSetting;
+
     public static final ViewModelInitializer<MainViewModel> initializer =
         new ViewModelInitializer<>(
             MainViewModel.class,
@@ -46,6 +48,7 @@ public class MainViewModel extends ViewModel {
         this.orderedGoals = new SimpleSubject<>();
         this.topGoal = new SimpleSubject<>();
         this.displayedText = new SimpleSubject<>();
+        this.viewSetting = new SimpleSubject<>();
         cal = Calendar.getInstance();
         // When the list of cards changes (or is first loaded), reset the ordering.
         goalRepository.findAll().observe(goals -> {
@@ -70,7 +73,23 @@ public class MainViewModel extends ViewModel {
             displayedText.setValue(goal.title());
         });
 
+        viewSetting.observe(viewSetting -> {
+            if (viewSetting == null) return;
+            if (viewSetting.equals("Recurring")) {
+                var newOrderedGoals = goalRepository.getRecursive().stream()
+                    .sorted(Comparator.comparingInt(Goal::sortOrder))
+                    .collect(Collectors.toList());
+                orderedGoals.setValue(newOrderedGoals);
+            } else {
+                orderedGoals.setValue(goalRepository.findAllList());
+            }
+        });
 
+
+    }
+
+    public void setViewSetting(String viewSetting) {
+        this.viewSetting.setValue(viewSetting);
     }
 
     public Subject<String> getDisplayedText() {
