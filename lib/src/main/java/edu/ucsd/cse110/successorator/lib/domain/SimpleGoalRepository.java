@@ -39,10 +39,10 @@ public class SimpleGoalRepository implements GoalRepository {
         return new ArrayList<>(); // filler to remove error (why do we still have this file?)
     }
 
-    @Override
-    public List<Goal> getGoalsOfDate(String date) {
-        return new ArrayList<>(); // filler to remove error (why do we still have this file?)
-    }
+//    @Override
+//    public List<Goal> getGoalsOfDate(String date) {
+//        return new ArrayList<>(); // filler to remove error (why do we still have this file?)
+//    }
 
     @Override
     public void save(Goal goal) {

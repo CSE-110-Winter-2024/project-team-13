@@ -65,8 +65,12 @@ public class MockDate extends AppCompatActivity {
     }
 
     public void displayText() {
-        if (viewSetting.equals("Today") || viewSetting.equals("Tomorrow")) {
+        if (viewSetting.equals("Today")) {
             dateTextView.setText(viewSetting + String.valueOf(new SimpleDateFormat(", M/dd").format(fakeDate.getTime())));
+        } else if (viewSetting.equals("Tomorrow")) {
+            Calendar tomorrow = (Calendar) fakeDate.clone();
+            tomorrow.add(Calendar.DATE, 1);
+            dateTextView.setText(viewSetting + String.valueOf(new SimpleDateFormat(", M/dd").format(tomorrow.getTime())));
         } else {
             dateTextView.setText(viewSetting);
         }
