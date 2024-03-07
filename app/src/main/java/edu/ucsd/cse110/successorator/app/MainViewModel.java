@@ -32,6 +32,10 @@ public class MainViewModel extends ViewModel {
 
     private SimpleSubject<String> viewSetting;
 
+//    private SimpleSubject<Calendar> dateInstance;
+//
+//    public String todayDate, tomorrowDate;
+
     public static final ViewModelInitializer<MainViewModel> initializer =
         new ViewModelInitializer<>(
             MainViewModel.class,
@@ -80,7 +84,21 @@ public class MainViewModel extends ViewModel {
                     .sorted(Comparator.comparingInt(Goal::sortOrder))
                     .collect(Collectors.toList());
                 orderedGoals.setValue(newOrderedGoals);
+            } else if (viewSetting.equals("Pending")) {
+                var newOrderedGoals = goalRepository.getPending().stream()
+                    .sorted(Comparator.comparingInt(Goal::sortOrder))
+                    .collect(Collectors.toList());
+                orderedGoals.setValue(newOrderedGoals);
             } else {
+//                Calendar value = dateInstance.getValue();
+//                todayDate = new SimpleDateFormat("MM/dd/yyyy").format(value.getTime());
+//                value.add(Calendar.DATE, 1);
+//                tomorrowDate = new SimpleDateFormat("MM/dd/yyyy").format(value.getTime());
+//
+//
+//                var newOrderedGoals = goalRepository.getGoalsOfDate(date).stream()
+//                    .sorted(Comparator.comparingInt(Goal::sortOrder))
+//                    .collect(Collectors.toList());
                 orderedGoals.setValue(goalRepository.findAllList());
             }
         });
@@ -91,6 +109,11 @@ public class MainViewModel extends ViewModel {
     public void setViewSetting(String viewSetting) {
         this.viewSetting.setValue(viewSetting);
     }
+
+//    public void setDateInstance(Calendar dateInstance) {
+//        this.dateInstance.setValue(dateInstance);
+//    }
+
 
     public Subject<String> getDisplayedText() {
         return displayedText;

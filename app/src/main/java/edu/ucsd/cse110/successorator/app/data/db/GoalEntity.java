@@ -36,6 +36,9 @@ public class GoalEntity {
     @ColumnInfo(name = "visibility")
     public int visibility;
 
+    @ColumnInfo(name = "pending")
+    public boolean pending;
+
     GoalEntity(@NonNull String title, int sortOrder) {
         this.title = title;
         this.sortOrder = sortOrder;

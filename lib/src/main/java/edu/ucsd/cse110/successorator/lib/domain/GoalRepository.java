@@ -13,6 +13,10 @@ public interface GoalRepository {
 
     List<Goal> getRecursive();
 
+    List<Goal> getPending();
+
+//    List<Goal> getGoalsOfDate(String date);
+
     void save(Goal goal);
 
     void save(List<Goal> goals);

@@ -51,6 +51,20 @@ import edu.ucsd.cse110.successorator.lib.util.Subject;
     }
 
     @Override
+    public List<Goal> getPending() {
+        return goalDao.getPending().stream()
+                .map(GoalEntity::toGoal)
+                .collect(Collectors.toList());
+    }
+
+//    @Override
+//    public List<Goal> getGoalsOfDate(String date) {
+//        return goalDao.getGoalsOfDate(date).stream()
+//                .map(GoalEntity::toGoal)
+//                .collect(Collectors.toList());
+//    }
+
+    @Override
     public void save(Goal goal) {
         goalDao.insert(GoalEntity.fromGoal(goal));
     }
