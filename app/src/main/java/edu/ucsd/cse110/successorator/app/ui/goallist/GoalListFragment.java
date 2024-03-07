@@ -120,7 +120,7 @@ public class GoalListFragment extends Fragment {
 
     private void initSpinner() {
         String[] items = new String[]{
-                "Today", "Tomorrow", "Pending", "Recurring"
+                "Today, " + getDateFormatted(Calendar.getInstance()), "Tomorrow, " + getDateFormatted(getTomorrow()), "Pending", "Recurring"
         };
 
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, items);
@@ -130,6 +130,16 @@ public class GoalListFragment extends Fragment {
         viewSpinner.setAdapter(adapter);
 //        viewSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //        });
+    }
+
+    private String getDateFormatted(Calendar date) {
+        return date.get(Calendar.MONTH) + "/" + date.get(Calendar.DAY_OF_MONTH) + "/" + date.get(Calendar.YEAR);
+    }
+
+    private Calendar getTomorrow() {
+        Calendar tomorrow = Calendar.getInstance();
+        tomorrow.add(Calendar.DAY_OF_MONTH, 1);
+        return tomorrow;
     }
 
 }
