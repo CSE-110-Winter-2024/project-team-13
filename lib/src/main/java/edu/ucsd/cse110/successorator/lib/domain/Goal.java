@@ -10,9 +10,11 @@ public class Goal {
     private final @Nullable Integer id;
     private final @NonNull String title;
     private boolean isCompleted;
-
+    private @NonNull String recursionType;
+    private @NonNull String date;
     private final @NonNull Integer sortOrder;
     private Calendar lastUpdated;
+    private int visibility;
 
 
     public Goal(@Nullable Integer id, @NonNull String title, @NonNull Integer sortOrder) {
@@ -21,6 +23,9 @@ public class Goal {
         this.isCompleted = false;
         this.sortOrder = sortOrder;
         this.lastUpdated = Calendar.getInstance();
+        this.recursionType = "oneTime";
+        this.date = "0";
+        this.visibility = 0;
     }
 
     public @Nullable Integer id() {
@@ -32,6 +37,12 @@ public class Goal {
     }
 
     public int sortOrder() { return sortOrder; }
+
+    public String recursionType(){ return recursionType; }
+
+    public String date(){ return date; }
+
+    public int visibility(){ return visibility; }
 
     public boolean isCompleted() {
         return isCompleted;
@@ -57,12 +68,15 @@ public class Goal {
         Goal goal = (Goal) o;
         return isCompleted == goal.isCompleted && Objects.equals(id, goal.id)
                 && Objects.equals(title, goal.title) && Objects.equals(sortOrder, goal.sortOrder)
-                && Objects.equals(lastUpdated, goal.lastUpdated);
+                && Objects.equals(lastUpdated, goal.lastUpdated)
+                && Objects.equals(recursionType, goal.recursionType)
+                && Objects.equals(date, goal.date)
+                && Objects.equals(visibility, goal.visibility);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, isCompleted, sortOrder, lastUpdated);
+        return Objects.hash(id, title, isCompleted, sortOrder, lastUpdated, recursionType, date);
     }
     public Calendar getLastUpdated() {
         return lastUpdated;
@@ -71,4 +85,10 @@ public class Goal {
     public void setLastUpdated(Calendar lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
+
+    public void setRecursionType(@NonNull String recursionType){ this.recursionType = recursionType; }
+
+    public void setDate(@NonNull String date){ this.date = date; }
+    public int setVisibility(int vis){ this.visibility = vis;
+    return visibility; }
 }

@@ -2,6 +2,7 @@ package edu.ucsd.cse110.successorator.app.data.db;
 
 import androidx.lifecycle.Transformations;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -86,9 +87,40 @@ import edu.ucsd.cse110.successorator.lib.util.Subject;
         goalDao.endOfIncompleted(GoalEntity.fromGoal(goal), sOrder);
     }
 
+        @Override
+        public void startOfRecursive(Goal goal) {
+            List<Goal> list = this.findAllList();
+            int sOrder = 0;
+            Goal goneGoal = null;
+            list.add(goal);
+            list = list.stream()
+                    .sorted(Comparator.comparingInt(Goal::sortOrder))
+                    .collect(Collectors.toList());
+            for (Goal i : list) {
+                System.out.println(i.title());
+                System.out.println(i.sortOrder());
+                if (i.sortOrder() == -1) {
+                    sOrder++;
+                    continue;
+                }
+                sOrder = i.sortOrder();
+                if (i.visibility() == 8) {
+                    goneGoal = i;
+                    break;
+                }
+
+            }
+            if(goneGoal == null){
+                goalDao.append(GoalEntity.fromGoal(goal));
+            }
+            else {
+                goalDao.startOfRecursive(GoalEntity.fromGoal(goal), sOrder);
+            }
+        }
+
     @Override
     public void remove(int id) {
-        goalDao.delete(id);
+        goalDao.remove(id);
     }
 
     @Override
