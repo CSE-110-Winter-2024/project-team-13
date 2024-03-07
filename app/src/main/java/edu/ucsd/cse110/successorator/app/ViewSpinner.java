@@ -14,6 +14,8 @@ import com.google.android.material.navigation.NavigationBarView;
 
 import org.w3c.dom.Text;
 
+import edu.ucsd.cse110.successorator.app.util.ViewSpinnerDateUpdater;
+
 public class ViewSpinner extends AppCompatActivity {
 
     Spinner spinner;
@@ -21,13 +23,14 @@ public class ViewSpinner extends AppCompatActivity {
 
     Activity activity;
 
-    TextView testSpinner;
+    ViewSpinnerDateUpdater updater;
 
-    public ViewSpinner(Activity activity, Spinner spinner, MainViewModel mainViewModel,TextView testSpinner) {
+    public ViewSpinner(Activity activity, Spinner spinner, MainViewModel mainViewModel, ViewSpinnerDateUpdater updater) {
         this.activity = activity;
         this.spinner = spinner;
         this.mainViewModel = mainViewModel;
-        this.testSpinner = testSpinner;
+        this.updater = updater;
+
         initSpinner();
     }
 
@@ -46,7 +49,7 @@ public class ViewSpinner extends AppCompatActivity {
                 // parent.getItemAtPosition(pos).
                 Log.d("Spinner", "onItemSelected: " + parent.getItemAtPosition(pos).toString());
                 String currValue = parent.getItemAtPosition(pos).toString();
-                testSpinner.setText(currValue);
+                updater.update(currValue);
             }
 
             @Override

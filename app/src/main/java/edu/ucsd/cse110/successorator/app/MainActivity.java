@@ -15,6 +15,7 @@ import java.util.Calendar;
 import java.text.SimpleDateFormat;
 
 import edu.ucsd.cse110.successorator.app.databinding.ActivityMainBinding;
+import edu.ucsd.cse110.successorator.app.util.ViewSpinnerDateUpdater;
 import edu.ucsd.cse110.successorator.lib.domain.GoalList;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private Spinner viewSpinnerView;
     private MainViewModel mainViewModel;
     private Thread thread;
+    private MockDate mockDate;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
         dateTextView = findViewById(R.id.date);
         viewSpinnerView = findViewById(R.id.view_spinner);
-        TextView testSpinner = findViewById(R.id.testSpinner);
 
         view.dayforward.setOnClickListener(v -> {
             fakeDate.add(Calendar.DAY_OF_MONTH, 1);
@@ -50,16 +51,17 @@ public class MainActivity extends AppCompatActivity {
 
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         mainViewModel.removeOutdatedCompletedGoals(Calendar.getInstance());
-        ViewSpinner viewSpinner = new ViewSpinner(this, viewSpinnerView, mainViewModel, testSpinner);
 
-        viewSpinnerView.setOnItemSelectedListener(viewSpinner.eventHandler());
     }
 
     @Override
     public void onResume() {
         super.onResume();
         fakeDate = Calendar.getInstance();
-        MockDate mockDate = new MockDate(fakeDate, dateTextView, mainViewModel, repGoals);
+        mockDate = new MockDate(fakeDate, dateTextView, mainViewModel, repGoals);
+        ViewSpinnerDateUpdater updater = new ViewSpinnerDateUpdater(mockDate);
+        ViewSpinner viewSpinner = new ViewSpinner(this, viewSpinnerView, mainViewModel, updater);
+        viewSpinnerView.setOnItemSelectedListener(viewSpinner.eventHandler());
         thread = mockDate.getMockDate();
         thread.start();
     }
