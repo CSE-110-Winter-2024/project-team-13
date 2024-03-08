@@ -88,7 +88,8 @@ public class GoalListFragment extends Fragment {
 //        });
 
         view.createGoalButton.setOnClickListener(v -> {
-            var dialogFragment = CreateGoalDialogFragment.newInstance();
+            String viewSetting = "Default";
+            var dialogFragment = CreateGoalDialogFragment.newInstance(viewSetting);
             dialogFragment.show(getParentFragmentManager(), "CreateGoalDialogFragment");
         });
 
