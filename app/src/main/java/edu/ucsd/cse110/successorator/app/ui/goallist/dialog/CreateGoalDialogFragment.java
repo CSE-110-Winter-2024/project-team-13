@@ -24,9 +24,11 @@ import java.util.Calendar;
 
 public class CreateGoalDialogFragment extends DialogFragment {
     private MainViewModel activityModel;
-    private FragmentDialogCreateGoalBinding view;
+    private FragmentDialogCreateGoalBinding defaultView;
+    private FragmentDialogCreateGoalPendingBinding pendingView;
+    private FragmentDialogCreateGoalRecurringBinding recurringView;
     private String viewSetting;
-    private String title;
+
 
     CreateGoalDialogFragment(){}
 
@@ -57,47 +59,23 @@ public class CreateGoalDialogFragment extends DialogFragment {
         this.viewSetting = getArguments() != null ? getArguments().getString("viewSetting", "") : "";
         // Dynamically decide which layout to use
         if ("Pending".equals(viewSetting)) {
-            FragmentDialogCreateGoalPendingBinding pendingView = FragmentDialogCreateGoalPendingBinding.inflate(inflater);
+            pendingView = FragmentDialogCreateGoalPendingBinding.inflate(inflater);
             configurePendingView(pendingView);
             builder.setView(pendingView.getRoot());
-            builder.setTitle("New Goal")
-                    .setMessage("Please enter your goal.")
-                    .setPositiveButton("Create", (dialog, which) -> {
-                        title = pendingView.goalTitleText.getText().toString();
-                        onPositiveButtonClick();
-                    })
-                    .setNegativeButton("Cancel", this::onNegativeButtonClick);
-            return builder.create();
         } else if ("Recurring".equals(viewSetting)) {
-            FragmentDialogCreateGoalRecurringBinding recurringView = FragmentDialogCreateGoalRecurringBinding.inflate(inflater);
+            recurringView = FragmentDialogCreateGoalRecurringBinding.inflate(inflater);
             configureRecurringView(recurringView);
             builder.setView(recurringView.getRoot());
-            builder.setTitle("New Goal")
-                    .setMessage("Please enter your goal.")
-                    .setPositiveButton("Create", (dialog, which) -> {
-                        title = recurringView.goalTitleText.getText().toString();
-                        onPositiveButtonClick();
-                    })
-                    .setNegativeButton("Cancel", this::onNegativeButtonClick);
-            return builder.create();
         } else {
-            FragmentDialogCreateGoalBinding defaultView = FragmentDialogCreateGoalBinding.inflate(inflater);
+            defaultView = FragmentDialogCreateGoalBinding.inflate(inflater);
             configureDefaultView(defaultView);
             builder.setView(defaultView.getRoot());
-            builder.setTitle("New Goal")
-                    .setMessage("Please enter your goal.")
-                    .setPositiveButton("Create", (dialog, which) -> {
-                        title = defaultView.goalTitleText.getText().toString();
-                        onPositiveButtonClick();
-                    })
-                    .setNegativeButton("Cancel", this::onNegativeButtonClick);
-            return builder.create();
         }
-//        builder.setTitle("New Goal")
-//                .setMessage("Please enter your goal.")
-//                .setPositiveButton("Create", this::onPositiveButtonClick)
-//                .setNegativeButton("Cancel", this::onNegativeButtonClick);
-//        return builder.create();
+        builder.setTitle("New Goal")
+                .setMessage("Please enter your goal.")
+                .setPositiveButton("Create", this::onPositiveButtonClick)
+                .setNegativeButton("Cancel", this::onNegativeButtonClick);
+        return builder.create();
     }
 
 
@@ -184,31 +162,32 @@ public class CreateGoalDialogFragment extends DialogFragment {
         view.yearly.setText(yearlyMsg);
     }
 
-    private void onPositiveButtonClick() {
-        //ISSUE: view is null and cannot call different view types
-        //title = view.goalTitleText.getText().toString();
+    private void onPositiveButtonClick(DialogInterface dialog, int which) {
+
+        String title;
         Calendar cal = MainViewModel.getCal();
         Goal goal;
 
         switch (viewSetting) {
             case "Pending":
-                // Assuming title is retrieved the same way from all views
+                title = pendingView.goalTitleText.getText().toString();
                 goal = new Goal(null, title, -1);
                 //Make this goal pending
                 break;
             case "Recurring":
-                if(view.daily.isChecked()){
+                title = recurringView.goalTitleText.getText().toString();
+                if(recurringView.daily.isChecked()){
                     //goal daily recursion
                     goal = new Goal(null, title, -1);
                     goal.setRecursionType("daily");
                 }
-                else if(view.weekly.isChecked()){
+                else if(recurringView.weekly.isChecked()){
                     //goal weekly recursion
                     goal = new Goal(null, title, -1);
                     goal.setRecursionType("weekly");
                     goal.setDate(String.valueOf(new SimpleDateFormat("EEEE").format(cal.getTime())));
                 }
-                else if(view.monthly.isChecked()){
+                else if(recurringView.monthly.isChecked()){
                     //goal monthly recursion
                     goal = new Goal(null, title, -1);
                     goal.setRecursionType("monthly");
@@ -222,22 +201,23 @@ public class CreateGoalDialogFragment extends DialogFragment {
                 }
                 break;
             default:
-                if(view.oneTime.isChecked()){
+                title = defaultView.goalTitleText.getText().toString();
+                if(defaultView.oneTime.isChecked()){
                     //goal no recursion
                     goal = new Goal(null, title, -1);
                 }
-                else if(view.daily.isChecked()){
+                else if(defaultView.daily.isChecked()){
                     //goal daily recursion
                     goal = new Goal(null, title, -1);
                     goal.setRecursionType("daily");
                 }
-                else if(view.weekly.isChecked()){
+                else if(defaultView.weekly.isChecked()){
                     //goal weekly recursion
                     goal = new Goal(null, title, -1);
                     goal.setRecursionType("weekly");
                     goal.setDate(String.valueOf(new SimpleDateFormat("EEEE").format(cal.getTime())));
                 }
-                else if(view.monthly.isChecked()){
+                else if(defaultView.monthly.isChecked()){
                     //goal monthly recursion
                     goal = new Goal(null, title, -1);
                     goal.setRecursionType("monthly");
@@ -253,7 +233,7 @@ public class CreateGoalDialogFragment extends DialogFragment {
         }
 
         activityModel.endOfIncompleted(goal);
-        //dialog.dismiss();
+        dialog.dismiss();
     }
 
     private void onNegativeButtonClick(DialogInterface dialog, int which) {
