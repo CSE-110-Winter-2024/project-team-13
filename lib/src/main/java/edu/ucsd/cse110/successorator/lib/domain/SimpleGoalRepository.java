@@ -61,17 +61,31 @@ public class SimpleGoalRepository implements GoalRepository {
     }
 
     public void endOfIncompleted(Goal goal) {
-//        List<Goal> list = dataSource.getGoals();
-//        int counter = 0;
-//        for (int i = 0; i < list.size(); i++) {
-//            if (!list.get(i).isCompleted()) {
-//                counter++;
-//            } else {
-//                break;
-//            }
-//        }
-//        dataSource.shiftSortOrders(counter+1, dataSource.getMaxSortOrder(), 1);
-//        dataSource.putGoal(goal.withSortOrder(counter));
+        List<Goal> list = dataSource.getGoals();
+        int counter = 0;
+        for (int i = 0; i < list.size(); i++) {
+            if (!list.get(i).isCompleted()) {
+                counter++;
+            } else {
+                break;
+            }
+        }
+        dataSource.shiftSortOrders(counter+1, dataSource.getMaxSortOrder(), 1);
+        dataSource.putGoal(goal.withSortOrder(counter));
+    }
+
+    public void startOfRecursive(Goal goal) {
+        List<Goal> list = dataSource.getGoals();
+        int counter = 0;
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).visibility() != 8) {
+                counter++;
+            } else {
+                break;
+            }
+        }
+        dataSource.shiftSortOrders(counter+1, dataSource.getMaxSortOrder(), 1);
+        dataSource.putGoal(goal.withSortOrder(counter));
     }
 
     @Override

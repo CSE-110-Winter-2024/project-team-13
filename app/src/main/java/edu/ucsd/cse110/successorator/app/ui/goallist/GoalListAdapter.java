@@ -51,13 +51,12 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
         } else {
             goalTitle.setPaintFlags(goalTitle.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
         }
-
         goalTitle.setOnClickListener(v -> {
             // https://www.codingdemos.com/android-strikethrough-text/
             if (!goal.isCompleted()) {
                 goal.setIsCompleted(true);
                 activityModel.remove(goal.id());
-                activityModel.append(goal);
+                activityModel.startOfRecursive(goal);
 
             } else {
                 goal.setIsCompleted(false);
@@ -66,7 +65,12 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
                 activityModel.endOfIncompleted(goal);
             }
         });
-
+        if(goal.visibility() != 0){
+            binding.getRoot().setVisibility(View.GONE);
+        }
+        else{
+            binding.getRoot().setVisibility(View.VISIBLE);
+        }
 
         return binding.getRoot();
     }
