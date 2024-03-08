@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Successorator</string>
+    <string-array name="views">
+        <item>Today</item>
+        <item>Tomorrow</item>
+        <item>Pending</item>
+        <item>Recurring</item>
+    </string-array>
 </resources>

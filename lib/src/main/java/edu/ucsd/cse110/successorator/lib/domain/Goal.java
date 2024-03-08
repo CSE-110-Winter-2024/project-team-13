@@ -15,6 +15,7 @@ public class Goal {
     private final @NonNull Integer sortOrder;
     private Calendar lastUpdated;
     private int visibility;
+    private boolean pending;
 
 
     public Goal(@Nullable Integer id, @NonNull String title, @NonNull Integer sortOrder) {
@@ -26,6 +27,7 @@ public class Goal {
         this.recursionType = "oneTime";
         this.date = "0";
         this.visibility = 0;
+        this.pending = false;
     }
 
     public @Nullable Integer id() {
@@ -88,6 +90,7 @@ public class Goal {
 
     public void setRecursionType(@NonNull String recursionType){ this.recursionType = recursionType; }
 
+    public void setPending(boolean pending){ this.pending = pending; }
     public void setDate(@NonNull String date){ this.date = date; }
     public int setVisibility(int vis){ this.visibility = vis;
     return visibility; }

@@ -26,6 +26,15 @@ public interface GoalDao {
     @Query("SELECT * FROM goals ORDER BY sort_order")
     List<GoalEntity> findAll();
 
+    @Query("SELECT * FROM goals WHERE recursion_type != 'oneTime'")
+    List<GoalEntity> getRecursive();
+
+    @Query("SELECT * FROM goals WHERE pending")
+    List<GoalEntity> getPending();
+
+//    @Query("SELECT * FROM goals WHERE date = :date")
+//    List<GoalEntity> getGoalsOfDate(String date);
+
     @Query("SELECT * FROM goals WHERE id = :id")
     LiveData<GoalEntity> findAsLiveData(int id);
 
