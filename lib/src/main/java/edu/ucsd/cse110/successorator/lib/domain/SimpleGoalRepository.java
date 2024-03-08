@@ -1,5 +1,6 @@
 package edu.ucsd.cse110.successorator.lib.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.ucsd.cse110.successorator.lib.data.InMemoryDataSource;
@@ -27,6 +28,21 @@ public class SimpleGoalRepository implements GoalRepository {
     public List<Goal> findAllList() {
         return dataSource.getGoals();
     }
+
+    @Override
+    public List<Goal> getRecursive() {
+        return new ArrayList<>(); // filler to remove error (why do we still have this file?)
+    }
+
+    @Override
+    public List<Goal> getPending() {
+        return new ArrayList<>(); // filler to remove error (why do we still have this file?)
+    }
+
+//    @Override
+//    public List<Goal> getGoalsOfDate(String date) {
+//        return new ArrayList<>(); // filler to remove error (why do we still have this file?)
+//    }
 
     @Override
     public void save(Goal goal) {

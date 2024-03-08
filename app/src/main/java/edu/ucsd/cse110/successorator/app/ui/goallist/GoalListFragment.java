@@ -2,9 +2,14 @@ package edu.ucsd.cse110.successorator.app.ui.goallist;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +21,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import edu.ucsd.cse110.successorator.app.MainViewModel;
+import edu.ucsd.cse110.successorator.app.R;
 import edu.ucsd.cse110.successorator.app.databinding.FragmentGoalListBinding;
 import edu.ucsd.cse110.successorator.app.ui.goallist.dialog.ConfirmDeleteGoalDialogFragment;
 import edu.ucsd.cse110.successorator.app.ui.goallist.dialog.CreateGoalDialogFragment;
@@ -59,6 +65,10 @@ public class GoalListFragment extends Fragment {
             adapter.addAll(new ArrayList<>(goals));
             adapter.notifyDataSetChanged();
         });
+
+
+
+
     }
 
     @Nullable
@@ -66,7 +76,16 @@ public class GoalListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.view = FragmentGoalListBinding.inflate(inflater, container, false);
 
+
+
         view.goalList.setAdapter(adapter);
+
+//        viewSpinner.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String viewState = viewSpinner.getSelectedItem().toString();
+//            }
+//        });
 
         view.createGoalButton.setOnClickListener(v -> {
             var dialogFragment = CreateGoalDialogFragment.newInstance();
@@ -75,4 +94,15 @@ public class GoalListFragment extends Fragment {
 
         return view.getRoot();
     }
+
+    private String getDateFormatted(Calendar date) {
+        return date.get(Calendar.MONTH) + "/" + date.get(Calendar.DAY_OF_MONTH) + "/" + date.get(Calendar.YEAR);
+    }
+
+    private Calendar getTomorrow() {
+        Calendar tomorrow = Calendar.getInstance();
+        tomorrow.add(Calendar.DAY_OF_MONTH, 1);
+        return tomorrow;
+    }
+
 }
