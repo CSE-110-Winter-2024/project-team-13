@@ -30,7 +30,7 @@ public class GoalListFragment extends Fragment {
     private MainViewModel activityModel;
     private FragmentGoalListBinding view;
     private GoalListAdapter adapter;
-
+    private String currentViewSetting = "Default"; // Default view setting
     public GoalListFragment() {
     }
 
@@ -88,7 +88,7 @@ public class GoalListFragment extends Fragment {
 //        });
 
         view.createGoalButton.setOnClickListener(v -> {
-            String viewSetting = "Default";
+            String viewSetting = activityModel.getCurrentViewSetting();
             var dialogFragment = CreateGoalDialogFragment.newInstance(viewSetting);
             dialogFragment.show(getParentFragmentManager(), "CreateGoalDialogFragment");
         });

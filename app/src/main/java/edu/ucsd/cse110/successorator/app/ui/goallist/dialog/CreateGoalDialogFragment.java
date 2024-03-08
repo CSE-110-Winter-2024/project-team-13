@@ -78,13 +78,12 @@ public class CreateGoalDialogFragment extends DialogFragment {
             FragmentDialogCreateGoalBinding defaultView = FragmentDialogCreateGoalBinding.inflate(inflater);
             configureDefaultView(defaultView);
             builder.setView(defaultView.getRoot());
-            return new AlertDialog.Builder(getActivity())
-                    .setTitle("New Goal")
+            builder.setTitle("New Goal")
                     .setMessage("Please enter your goal.")
-                    .setView(view.getRoot())
                     .setPositiveButton("Create", this::onPositiveButtonClick)
-                    .setNegativeButton("Cancel", this::onNegativeButtonClick)
-                    .create();
+                    .setNegativeButton("Cancel", this::onNegativeButtonClick);
+
+            return builder.create();
         }
 
 //        builder.setTitle("New Goal")
