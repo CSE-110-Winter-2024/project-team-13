@@ -26,6 +26,7 @@ public class CreateGoalDialogFragment extends DialogFragment {
     private MainViewModel activityModel;
     private FragmentDialogCreateGoalBinding view;
     private String viewSetting;
+    private String title;
 
     CreateGoalDialogFragment(){}
 
@@ -57,12 +58,15 @@ public class CreateGoalDialogFragment extends DialogFragment {
         // Dynamically decide which layout to use
         if ("Pending".equals(viewSetting)) {
             FragmentDialogCreateGoalPendingBinding pendingView = FragmentDialogCreateGoalPendingBinding.inflate(inflater);
+            configurePendingView(pendingView);
             builder.setView(pendingView.getRoot());
             builder.setTitle("New Goal")
                     .setMessage("Please enter your goal.")
-                    .setPositiveButton("Create", this::onPositiveButtonClick)
+                    .setPositiveButton("Create", (dialog, which) -> {
+                        title = pendingView.goalTitleText.getText().toString();
+                        onPositiveButtonClick();
+                    })
                     .setNegativeButton("Cancel", this::onNegativeButtonClick);
-
             return builder.create();
         } else if ("Recurring".equals(viewSetting)) {
             FragmentDialogCreateGoalRecurringBinding recurringView = FragmentDialogCreateGoalRecurringBinding.inflate(inflater);
@@ -70,9 +74,11 @@ public class CreateGoalDialogFragment extends DialogFragment {
             builder.setView(recurringView.getRoot());
             builder.setTitle("New Goal")
                     .setMessage("Please enter your goal.")
-                    .setPositiveButton("Create", this::onPositiveButtonClick)
+                    .setPositiveButton("Create", (dialog, which) -> {
+                        title = recurringView.goalTitleText.getText().toString();
+                        onPositiveButtonClick();
+                    })
                     .setNegativeButton("Cancel", this::onNegativeButtonClick);
-
             return builder.create();
         } else {
             FragmentDialogCreateGoalBinding defaultView = FragmentDialogCreateGoalBinding.inflate(inflater);
@@ -80,28 +86,18 @@ public class CreateGoalDialogFragment extends DialogFragment {
             builder.setView(defaultView.getRoot());
             builder.setTitle("New Goal")
                     .setMessage("Please enter your goal.")
-                    .setPositiveButton("Create", this::onPositiveButtonClick)
+                    .setPositiveButton("Create", (dialog, which) -> {
+                        title = defaultView.goalTitleText.getText().toString();
+                        onPositiveButtonClick();
+                    })
                     .setNegativeButton("Cancel", this::onNegativeButtonClick);
-
             return builder.create();
         }
-
 //        builder.setTitle("New Goal")
 //                .setMessage("Please enter your goal.")
 //                .setPositiveButton("Create", this::onPositiveButtonClick)
 //                .setNegativeButton("Cancel", this::onNegativeButtonClick);
-
 //        return builder.create();
-
-        //this.view = FragmentDialogCreateGoalBinding.inflate(getLayoutInflater());
-
-//        return new AlertDialog.Builder(getActivity())
-//            .setTitle("New Goal")
-//            .setMessage("Please enter your goal.")
-//            .setView(view.getRoot())
-//            .setPositiveButton("Create", this::onPositiveButtonClick)
-//            .setNegativeButton("Cancel", this::onNegativeButtonClick)
-//            .create();
     }
 
 
@@ -188,8 +184,9 @@ public class CreateGoalDialogFragment extends DialogFragment {
         view.yearly.setText(yearlyMsg);
     }
 
-    private void onPositiveButtonClick(DialogInterface dialog, int which) {
-        var title = view.goalTitleText.getText().toString();
+    private void onPositiveButtonClick() {
+        //ISSUE: view is null and cannot call different view types
+        //title = view.goalTitleText.getText().toString();
         Calendar cal = MainViewModel.getCal();
         Goal goal;
 
@@ -256,7 +253,7 @@ public class CreateGoalDialogFragment extends DialogFragment {
         }
 
         activityModel.endOfIncompleted(goal);
-        dialog.dismiss();
+        //dialog.dismiss();
     }
 
     private void onNegativeButtonClick(DialogInterface dialog, int which) {
