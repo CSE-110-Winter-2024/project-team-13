@@ -167,6 +167,10 @@ public class MainViewModel extends ViewModel {
         tomorrowInstance.add(Calendar.DATE, 1);
     }
 
+    // Method to get current view setting
+    public String getCurrentViewSetting() {
+        return viewSetting.getValue();
+    }
 
     public Subject<String> getDisplayedText() {
         return displayedText;
