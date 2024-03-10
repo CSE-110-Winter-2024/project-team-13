@@ -65,6 +65,7 @@ public interface GoalDao {
         newGoal.recursionType = goal.recursionType;
         newGoal.date = goal.date;
         newGoal.visibility = goal.visibility;
+        newGoal.pending = goal.pending;
         return Math.toIntExact(insert(newGoal));
     }
 
@@ -78,6 +79,7 @@ public interface GoalDao {
         newGoal.recursionType = goal.recursionType;
         newGoal.date = goal.date;
         newGoal.visibility = goal.visibility;
+        newGoal.pending = goal.pending;
         return Math.toIntExact(insert(newGoal));
     }
 
@@ -91,6 +93,7 @@ public interface GoalDao {
         newGoal.recursionType = goal.recursionType;
         newGoal.date = goal.date;
         newGoal.visibility = goal.visibility;
+        newGoal.pending = goal.pending;
         return Math.toIntExact(insert(newGoal));
     }
 
@@ -103,6 +106,7 @@ public interface GoalDao {
         newGoal.recursionType = goal.recursionType;
         newGoal.date = goal.date;
         newGoal.visibility = goal.visibility;
+        newGoal.pending = goal.pending;
         return Math.toIntExact(insert(newGoal));
     }
 

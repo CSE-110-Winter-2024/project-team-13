@@ -47,6 +47,7 @@ public class GoalEntity {
         this.recursionType = "oneTime";
         this.date = "0";
         this.visibility = 0;
+        this.pending = false;
     }
 
     public static GoalEntity fromGoal(@NonNull Goal goal) {
@@ -57,6 +58,7 @@ public class GoalEntity {
         card.recursionType = goal.recursionType();
         card.date = goal.date();
         card.visibility = goal.visibility();
+        card.pending = goal.isPending();
         return card;
     }
 
@@ -69,6 +71,7 @@ public class GoalEntity {
         goal.setRecursionType(recursionType);
         goal.setDate(date);
         goal.setVisibility(visibility);
+        goal.setPending(pending);
         return goal;
     }
 }
