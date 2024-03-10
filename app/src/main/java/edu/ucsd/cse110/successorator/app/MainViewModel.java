@@ -114,6 +114,10 @@ public class MainViewModel extends ViewModel {
 //        this.dateInstance.setValue(dateInstance);
 //    }
 
+    // Method to get current view setting
+    public String getCurrentViewSetting() {
+        return viewSetting.getValue();
+    }
 
     public Subject<String> getDisplayedText() {
         return displayedText;
