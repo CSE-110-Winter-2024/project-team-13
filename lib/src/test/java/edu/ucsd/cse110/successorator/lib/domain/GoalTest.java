@@ -93,6 +93,12 @@ public class GoalTest {
         assertTrue(goal.isPending());
     }
 
+    @Test
+    public void goalVisibility() {
+        Goal goal = new Goal(1, "Visible Goal", 1);
+        goal.setVisibility(1);
+        assertEquals(1, goal.visibility());
+    }
 
 
 

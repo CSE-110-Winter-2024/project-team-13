@@ -93,7 +93,8 @@ public class Goal {
     public void setRecursionType(@NonNull String recursionType){ this.recursionType = recursionType; }
 
     public void setPending(boolean pending){ this.pending = pending; }
+
     public void setDate(@NonNull String date){ this.date = date; }
-    public int setVisibility(int vis){ this.visibility = vis;
-    return visibility; }
+
+    public void setVisibility(int vis){ this.visibility = vis; }
 }
