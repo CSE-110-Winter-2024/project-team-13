@@ -40,6 +40,8 @@ public class Goal {
 
     public int sortOrder() { return sortOrder; }
 
+    public boolean isPending() { return pending; }
+
     public String recursionType(){ return recursionType; }
 
     public String date(){ return date; }

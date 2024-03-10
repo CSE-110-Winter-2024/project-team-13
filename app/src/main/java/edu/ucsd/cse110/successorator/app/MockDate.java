@@ -46,7 +46,7 @@ public class MockDate extends AppCompatActivity {
                             @Override
                             public void run() {
                                 Calendar realDate = Calendar.getInstance();
-//                                mainViewModel.setDateInstance(fakeDate);
+                                mainViewModel.setDateInstance(fakeDate);
                                 displayText();
                                 if (fakeDate.get(Calendar.HOUR_OF_DAY) == 2 && fakeDate.get(Calendar.MINUTE) == 0 && fakeDate.get(Calendar.SECOND) == 0) {
                                     fakeDate.add(Calendar.SECOND, 1);
