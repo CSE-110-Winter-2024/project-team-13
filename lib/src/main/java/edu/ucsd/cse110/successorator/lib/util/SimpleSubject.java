@@ -32,6 +32,10 @@ public class SimpleSubject<T> implements MutableSubject<T> {
         observers.remove(observer);
     }
 
+    public void callNotify() {
+        notifyObservers();
+    }
+
     /**
      * Notifies all observers of the subject's new value. Used internally.
      */
