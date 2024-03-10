@@ -120,7 +120,6 @@ public class CreateGoalDialogFragment extends DialogFragment {
 
     private void configurePendingView(FragmentDialogCreateGoalPendingBinding view) {
         //Do Nothing.
-        //Something to think about is to add goal with a status "pending".
     }
 
     private void configureDefaultView(FragmentDialogCreateGoalBinding view) {
@@ -172,7 +171,7 @@ public class CreateGoalDialogFragment extends DialogFragment {
             case "Pending":
                 title = pendingView.goalTitleText.getText().toString();
                 goal = new Goal(null, title, -1);
-                //Make this goal pending
+                goal.setPending(true);
                 break;
             case "Recurring":
                 title = recurringView.goalTitleText.getText().toString();

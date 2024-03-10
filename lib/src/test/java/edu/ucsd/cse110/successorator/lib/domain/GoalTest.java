@@ -65,4 +65,41 @@ public class GoalTest {
         assertTrue(goal.getLastUpdated().after(beforeCreation) || goal.getLastUpdated().equals(beforeCreation));
         assertTrue(goal.getLastUpdated().before(afterCreation) || goal.getLastUpdated().equals(afterCreation));
     }
+
+    @Test
+    public void goalRecursionTypeAndDate() {
+        Goal goal = new Goal(1, "Recurring Goal", 1);
+        goal.setRecursionType("daily");
+        goal.setDate("2024-03-01");
+        assertEquals("daily", goal.recursionType());
+        assertEquals("2024-03-01", goal.date());
+    }
+
+    @Test
+    public void goalPendingStatus() {
+        Goal goal = new Goal(1, "Pending Goal", 1);
+        goal.setPending(true);
+        assertTrue(goal.isPending());
+    }
+
+    @Test
+    public void recurringAndPendingGoalIntegration() {
+        Goal goal = new Goal(null, "Future Goal", 1);
+        goal.setRecursionType("weekly");
+        goal.setDate("2024-03-07");
+        goal.setPending(true);
+        assertEquals("weekly", goal.recursionType());
+        assertEquals("2024-03-07", goal.date());
+        assertTrue(goal.isPending());
+    }
+
+    @Test
+    public void goalVisibility() {
+        Goal goal = new Goal(1, "Visible Goal", 1);
+        goal.setVisibility(1);
+        assertEquals(1, goal.visibility());
+    }
+
+
+
 }
