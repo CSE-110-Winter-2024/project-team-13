@@ -223,6 +223,7 @@ public class MainViewModel extends ViewModel {
                 Log.d("Today Date", today.getTime().toString());
                 if(!goal.date().equals("0") && goal.visibility() == View.GONE){
                     if (goal.recursionType().equals("weekly")) {
+                        //Goal recursion date is equal to the current date
                         if (goal.date().equals(
                                 String.valueOf(new SimpleDateFormat("EEEE").format(today.getTime())))) {
                             goal.setIsCompleted(false);
@@ -232,14 +233,12 @@ public class MainViewModel extends ViewModel {
                             endOfIncompleted(goal);
                         }
                     } else if (goal.recursionType().equals("monthly")) {
+                        //repeated date of the month, eg. 3rd Tuesday
                         int numRepeated = (((today.get(Calendar.DAY_OF_MONTH)) - 1) / 7) + 1;
                         String day = String.valueOf(new SimpleDateFormat("EEEE").format(today.getTime()));
+                        //repeated date of the recursive goal, first 2 characters
                         int goalRepeated = Integer.parseInt(goal.date().substring(0,2));
                         goalRepeated = ((goalRepeated - 1) / 7) + 1;
-                        System.out.println(goalRepeated);
-                        System.out.println(numRepeated);
-                        System.out.println(day);
-                        System.out.println(goal.date().substring(2));
                         if (numRepeated == goalRepeated
                                 && day.equals(goal.date().substring(2))) {
                             goal.setIsCompleted(false);

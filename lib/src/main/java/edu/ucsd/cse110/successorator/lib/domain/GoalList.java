@@ -55,7 +55,8 @@ public class GoalList {
         for(Goal goal:list){
             if(goal.title().equals(hasGoal.title())
                     && goal.recursionType().equals(hasGoal.recursionType())
-                    && goal.date().equals(hasGoal.date())){
+                    && goal.date().equals(hasGoal.date())
+                    && goal.context()==(hasGoal.context())){
                 return true;
             }
         }
