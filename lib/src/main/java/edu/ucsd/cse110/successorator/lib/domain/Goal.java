@@ -16,6 +16,7 @@ public class Goal {
     private Calendar lastUpdated;
     private int visibility;
     private boolean pending;
+    private int context;
 
 
     public Goal(@Nullable Integer id, @NonNull String title, @NonNull Integer sortOrder) {
@@ -28,6 +29,7 @@ public class Goal {
         this.date = "0";
         this.visibility = 0;
         this.pending = false;
+        this.context = 0;
     }
 
     public @Nullable Integer id() {
@@ -52,8 +54,15 @@ public class Goal {
         return isCompleted;
     }
 
+    public int context(){ return context; }
+
     public void setIsCompleted(boolean completed){
         isCompleted = completed;
+        this.lastUpdated = Calendar.getInstance();
+    }
+
+    public void setContext(int con){
+        context = con;
         this.lastUpdated = Calendar.getInstance();
     }
 
@@ -75,7 +84,8 @@ public class Goal {
                 && Objects.equals(lastUpdated, goal.lastUpdated)
                 && Objects.equals(recursionType, goal.recursionType)
                 && Objects.equals(date, goal.date)
-                && Objects.equals(visibility, goal.visibility);
+                && Objects.equals(visibility, goal.visibility)
+                && Objects.equals(context, goal.context);
     }
 
     @Override

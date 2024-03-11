@@ -39,6 +39,9 @@ public class GoalEntity {
     @ColumnInfo(name = "pending")
     public boolean pending;
 
+    @ColumnInfo(name = "context")
+    public int context;
+
     GoalEntity(@NonNull String title, int sortOrder) {
         this.title = title;
         this.sortOrder = sortOrder;
@@ -48,6 +51,7 @@ public class GoalEntity {
         this.date = "0";
         this.visibility = 0;
         this.pending = false;
+        this.context = 0;
     }
 
     public static GoalEntity fromGoal(@NonNull Goal goal) {
@@ -59,6 +63,7 @@ public class GoalEntity {
         card.date = goal.date();
         card.visibility = goal.visibility();
         card.pending = goal.isPending();
+        card.context = goal.context();
         return card;
     }
 
@@ -72,6 +77,7 @@ public class GoalEntity {
         goal.setDate(date);
         goal.setVisibility(visibility);
         goal.setPending(pending);
+        goal.setContext(context);
         return goal;
     }
 }
