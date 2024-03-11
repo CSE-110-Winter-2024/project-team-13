@@ -61,6 +61,7 @@ public class MainViewModel extends ViewModel {
                 .collect(Collectors.toList());
 
             orderedGoals.setValue(newOrderedGoals);
+            viewSetting.callNotify();
         });
 
         orderedGoals.observe(goals -> {
