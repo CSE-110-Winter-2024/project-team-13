@@ -17,5 +17,61 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <RadioGroup
+        android:id="@+id/context_type_radio_button_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:rotationY="0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/goal_title_text">
+
+        <RadioButton
+            android:id="@+id/home"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="6dp"
+            android:background="@drawable/home_tag"
+            android:button="@android:color/transparent"
+            android:paddingStart="17dp"
+            android:text="H"
+            android:textSize="10pt"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/work"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="6dp"
+            android:background="@drawable/work_tag"
+            android:button="@android:color/transparent"
+            android:paddingStart="15dp"
+            android:text="W"
+            android:textSize="10pt"
+            />
+
+        <RadioButton
+            android:id="@+id/school"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="6dp"
+            android:background="@drawable/school_tag"
+            android:button="@android:color/transparent"
+            android:paddingStart="18dp"
+            android:text="S"
+            android:textSize="10pt" />
+
+        <RadioButton
+            android:id="@+id/errands"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="6dp"
+            android:background="@drawable/errand_tag"
+            android:button="@android:color/transparent"
+            android:paddingStart="19dp"
+            android:text="E"
+            android:textSize="10pt"/>
+    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

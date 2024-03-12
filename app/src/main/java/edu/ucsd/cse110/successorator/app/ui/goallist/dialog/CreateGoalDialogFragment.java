@@ -235,21 +235,49 @@ public class CreateGoalDialogFragment extends DialogFragment {
         dialog.dismiss();
     }
     public int context(){
-        if(defaultView.home.isChecked()){
-            //goal home context
-            return 0;
-        }
-        else if(defaultView.work.isChecked()){
-            //goal work context
-            return 1;
-        }
-        else if(defaultView.school.isChecked()){
-            //goal school context
-            return 2;
-        }
-        else{
-            //goal errands context
-            return 3;
+        switch (viewSetting) {
+            case "Pending":
+                if (pendingView.home.isChecked()) {
+                    //pending goal home context
+                    return 0;
+                } else if (pendingView.work.isChecked()) {
+                    //pending goal work context
+                    return 1;
+                } else if (pendingView.school.isChecked()) {
+                    //pending goal school context
+                    return 2;
+                } else {
+                    //pending goal errands context
+                    return 3;
+                }
+            case "Recurring":
+                if (recurringView.home.isChecked()) {
+                    //recurring goal home context
+                    return 0;
+                } else if (recurringView.work.isChecked()) {
+                    //recurring goal work context
+                    return 1;
+                } else if (recurringView.school.isChecked()) {
+                    //recurring goal school context
+                    return 2;
+                } else {
+                    //recurring goal errands context
+                    return 3;
+                }
+            default:
+                if (defaultView.home.isChecked()) {
+                    //goal home context
+                    return 0;
+                } else if (defaultView.work.isChecked()) {
+                    //goal work context
+                    return 1;
+                } else if (defaultView.school.isChecked()) {
+                    //goal school context
+                    return 2;
+                } else {
+                    //goal errands context
+                    return 3;
+                }
         }
     }
     private void onNegativeButtonClick(DialogInterface dialog, int which) {
