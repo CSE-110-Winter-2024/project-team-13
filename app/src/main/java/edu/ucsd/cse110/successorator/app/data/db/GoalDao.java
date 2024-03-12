@@ -66,7 +66,6 @@ public interface GoalDao {
         newGoal.date = goal.date;
         newGoal.visibility = goal.visibility;
         newGoal.pending = goal.pending;
-        newGoal.context = goal.context;
         return Math.toIntExact(insert(newGoal));
     }
 
@@ -81,7 +80,6 @@ public interface GoalDao {
         newGoal.date = goal.date;
         newGoal.visibility = goal.visibility;
         newGoal.pending = goal.pending;
-        newGoal.context = goal.context;
         return Math.toIntExact(insert(newGoal));
     }
 
@@ -96,7 +94,6 @@ public interface GoalDao {
         newGoal.date = goal.date;
         newGoal.visibility = goal.visibility;
         newGoal.pending = goal.pending;
-        newGoal.context = goal.context;
         return Math.toIntExact(insert(newGoal));
     }
 
@@ -110,7 +107,6 @@ public interface GoalDao {
         newGoal.date = goal.date;
         newGoal.visibility = goal.visibility;
         newGoal.pending = goal.pending;
-        newGoal.context = goal.context;
         return Math.toIntExact(insert(newGoal));
     }
 

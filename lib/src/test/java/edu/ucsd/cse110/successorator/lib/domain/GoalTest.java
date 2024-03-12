@@ -100,11 +100,6 @@ public class GoalTest {
         assertEquals(1, goal.visibility());
     }
 
-    @Test
-    public void goalContext() {
-        Goal goal = new Goal(1, "Context Goal", 1);
-        goal.setContext(1);
-        assertEquals(1, goal.context());
-    }
+
 
 }
