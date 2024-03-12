@@ -52,12 +52,16 @@ public class MainViewModel extends ViewModel {
         this.displayedText = new SimpleSubject<>();
         this.viewSetting = new SimpleSubject<>();
         cal = Calendar.getInstance();
+        if(dateInstance == null){
+            dateInstance = cal;
+        }
         // When the list of cards changes (or is first loaded), reset the ordering.
         goalRepository.findAll().observe(goals -> {
             if (goals == null) return; // not ready yet, ignore
 
             var newOrderedGoals = goals.stream()
                 .sorted(Comparator.comparingInt(Goal::visibility)
+                    .thenComparing(Goal::isCompleted)
                     .thenComparingInt(Goal::context)
                     .thenComparingInt(Goal::sortOrder))
                 .collect(Collectors.toList());
@@ -83,6 +87,7 @@ public class MainViewModel extends ViewModel {
             if (viewSetting.equals("Recurring")) {
                 var newOrderedGoals = goalRepository.getRecursive().stream()
                     .sorted(Comparator.comparingInt(Goal::visibility)
+                        .thenComparing(Goal::isCompleted)
                         .thenComparingInt(Goal::context)
                         .thenComparingInt(Goal::sortOrder))
                     .collect(Collectors.toList());
@@ -90,6 +95,7 @@ public class MainViewModel extends ViewModel {
             } else if (viewSetting.equals("Pending")) {
                 var newOrderedGoals = goalRepository.getPending().stream()
                     .sorted(Comparator.comparingInt(Goal::visibility)
+                        .thenComparing(Goal::isCompleted)
                         .thenComparingInt(Goal::context)
                         .thenComparingInt(Goal::sortOrder))
                     .collect(Collectors.toList());
@@ -98,6 +104,7 @@ public class MainViewModel extends ViewModel {
                 var notPendingGoals = goalRepository.findAllList().stream()
                         .filter(goal -> !goal.isPending())
                         .sorted(Comparator.comparingInt(Goal::visibility)
+                            .thenComparing(Goal::isCompleted)
                             .thenComparingInt(Goal::context)
                             .thenComparingInt(Goal::sortOrder))
 
@@ -133,6 +140,7 @@ public class MainViewModel extends ViewModel {
                 var notPendingGoals = goalRepository.findAllList().stream()
                         .filter(goal -> !goal.isPending())
                         .sorted(Comparator.comparingInt(Goal::visibility)
+                            .thenComparing(Goal::isCompleted)
                             .thenComparingInt(Goal::context)
                             .thenComparingInt(Goal::sortOrder))
                         .collect(Collectors.toList());
