@@ -19,20 +19,55 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
+        android:id="@+id/context_type_radio_button_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:rotationY="0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/goal_title_text">
+
+        <RadioButton
+            android:id="@+id/home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="H"
+            android:checked="true"/>
+
+        <RadioButton
+            android:id="@+id/work"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="W" />
+
+        <RadioButton
+            android:id="@+id/school"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="S" />
+
+        <RadioButton
+            android:id="@+id/errands"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="E" />
+    </RadioGroup>
+
+    <RadioGroup
         android:id="@+id/recursive_mode_radio_button_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/goal_title_text">
+        app:layout_constraintTop_toBottomOf="@+id/context_type_radio_button_group">
 
         <RadioButton
             android:id="@+id/one_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="One time"
-            android:checked="true"/>
+            android:checked="true"
+            android:text="One time" />
 
         <RadioButton
             android:id="@+id/daily"
