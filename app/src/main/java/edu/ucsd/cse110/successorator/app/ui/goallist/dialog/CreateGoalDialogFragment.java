@@ -230,11 +230,28 @@ public class CreateGoalDialogFragment extends DialogFragment {
                 }
                 break;
         }
-
+        goal.setContext(context());
         activityModel.endOfIncompleted(goal);
         dialog.dismiss();
     }
-
+    public int context(){
+        if(defaultView.home.isChecked()){
+            //goal home context
+            return 0;
+        }
+        else if(defaultView.work.isChecked()){
+            //goal work context
+            return 1;
+        }
+        else if(defaultView.school.isChecked()){
+            //goal school context
+            return 2;
+        }
+        else{
+            //goal errands context
+            return 3;
+        }
+    }
     private void onNegativeButtonClick(DialogInterface dialog, int which) {
         dialog.cancel();
     }
