@@ -2,10 +2,12 @@ package edu.ucsd.cse110.successorator.app.ui.goallist;
 
 import android.content.Context;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -34,7 +36,6 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
         this.activityModel = activityModel;
     }
 
-    @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         var goal = getItem(position);
@@ -68,6 +69,29 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
                 activityModel.endOfIncompleted(goal);
             }
         });
+
+        goalTitle.setOnLongClickListener(v -> {
+            // Handle long click event
+            // Log the long click event
+            Log.d("LongClickTest", "Long click detected on TextView");
+            // Create a PopupMenu anchored to the clicked TextView
+            PopupMenu pendingMenu = new PopupMenu(parent.getContext(), v);
+            // Inflate the menu layout into the PopupMenu
+            pendingMenu.getMenuInflater().inflate(R.menu.delete_pending, pendingMenu.getMenu());
+            // Set an item click listener for the menu items
+            pendingMenu.setOnMenuItemClickListener(item -> {
+                if (item.getItemId() == R.id.delete){
+                    // Perform delete action
+//                        deleteGoal(goalTextView.getText().toString());
+                    return true;
+                }
+                return false;
+            });
+            // Show the PopupMenu
+            pendingMenu.show();
+            return true;
+        });
+
         if(goal.visibility() != 0){
             binding.getRoot().setVisibility(View.GONE);
         }
@@ -77,7 +101,6 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
 
         return binding.getRoot();
     }
-
 
     @Override
     public boolean hasStableIds() {

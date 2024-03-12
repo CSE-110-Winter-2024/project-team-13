@@ -1,16 +1,25 @@
 package edu.ucsd.cse110.successorator.app.ui.goallist.dialog;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.PopupMenu;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import edu.ucsd.cse110.successorator.app.MainActivity;
 import edu.ucsd.cse110.successorator.app.MainViewModel;
 import edu.ucsd.cse110.successorator.app.R;
 import edu.ucsd.cse110.successorator.app.databinding.ActivityMainBinding;
@@ -28,7 +37,6 @@ public class CreateGoalDialogFragment extends DialogFragment {
     private FragmentDialogCreateGoalPendingBinding pendingView;
     private FragmentDialogCreateGoalRecurringBinding recurringView;
     private String viewSetting;
-
 
     CreateGoalDialogFragment(){}
 
@@ -119,7 +127,31 @@ public class CreateGoalDialogFragment extends DialogFragment {
     }
 
     private void configurePendingView(FragmentDialogCreateGoalPendingBinding view) {
-        //Do Nothing.
+//        // Get the goal TextView
+//        TextView goalTextView = view.goalTitleText;
+//
+//        // Add a long click listener to the goal TextView
+//        goalTextView.setOnLongClickListener(v -> {
+//            // Handle long click event
+//            // Log the long click event
+//            Log.d("LongClickTest", "Long click detected on TextView");
+//            // Create a PopupMenu anchored to the clicked TextView
+//            PopupMenu pendingMenu = new PopupMenu(v.getContext(), v);
+//            // Inflate the menu layout into the PopupMenu
+//            pendingMenu.getMenuInflater().inflate(R.menu.delete_pending, pendingMenu.getMenu());
+//            // Set an item click listener for the menu items
+//            pendingMenu.setOnMenuItemClickListener(item -> {
+//                if (item.getItemId() == R.id.delete){
+//                    // Perform delete action
+////                        deleteGoal(goalTextView.getText().toString());
+//                    return true;
+//                }
+//                return false;
+//            });
+//            // Show the PopupMenu
+//            pendingMenu.show();
+//            return true;
+//        });
     }
 
     private void configureDefaultView(FragmentDialogCreateGoalBinding view) {
@@ -230,7 +262,7 @@ public class CreateGoalDialogFragment extends DialogFragment {
                 }
                 break;
         }
-        goal.setContext(context());
+//        goal.setContext(context());
         activityModel.endOfIncompleted(goal);
         dialog.dismiss();
     }

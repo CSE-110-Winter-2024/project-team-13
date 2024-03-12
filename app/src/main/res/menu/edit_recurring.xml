@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id = "@+id/movetoday"
+        android:title="@string/move_to_today"/>
+    <item
+        android:id = "@+id/movetomorrow"
+        android:title="@string/move_to_tomorrow"/>
+    <item
+        android:id = "@+id/finish"
+        android:title="@string/finish"/>
+    <item
+        android:id = "@+id/delete"
+        android:title="@string/delete"/>
+</menu>
