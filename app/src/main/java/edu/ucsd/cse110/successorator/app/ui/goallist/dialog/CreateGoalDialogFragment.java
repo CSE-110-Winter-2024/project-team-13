@@ -230,6 +230,7 @@ public class CreateGoalDialogFragment extends DialogFragment {
                     goal.setRecursionType("yearly");
                     goal.setDate(String.valueOf(new SimpleDateFormat("ddMM").format(cal.getTime())));
                 }
+                goal.setRecurring(true);
                 break;
             default:
                 title = defaultView.goalTitleText.getText().toString();
@@ -241,28 +242,32 @@ public class CreateGoalDialogFragment extends DialogFragment {
                     //goal daily recursion
                     goal = new Goal(null, title, -1);
                     goal.setRecursionType("daily");
+                    goal.setRecurring(true);
                 }
                 else if(defaultView.weekly.isChecked()){
                     //goal weekly recursion
                     goal = new Goal(null, title, -1);
                     goal.setRecursionType("weekly");
+                    goal.setRecurring(true);
                     goal.setDate(String.valueOf(new SimpleDateFormat("EEEE").format(cal.getTime())));
                 }
                 else if(defaultView.monthly.isChecked()){
                     //goal monthly recursion
                     goal = new Goal(null, title, -1);
                     goal.setRecursionType("monthly");
+                    goal.setRecurring(true);
                     goal.setDate(String.valueOf(new SimpleDateFormat("ddEEEE").format(cal.getTime())));
                 }
                 else{
                     //goal yearly recursion
                     goal = new Goal(null, title, -1);
                     goal.setRecursionType("yearly");
+                    goal.setRecurring(true);
                     goal.setDate(String.valueOf(new SimpleDateFormat("ddMM").format(cal.getTime())));
                 }
                 break;
         }
-//        goal.setContext(context());
+        goal.setContext(context());
         activityModel.endOfIncompleted(goal);
         dialog.dismiss();
     }
