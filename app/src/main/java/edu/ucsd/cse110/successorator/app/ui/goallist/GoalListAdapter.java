@@ -56,6 +56,29 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
         } else {
             goalTitle.setPaintFlags(goalTitle.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
         }
+
+        // Here, check if the goal is pending and only then set the onLongClickListener
+        if(goal.isPending()) { // Assuming isPending() method exists in Goal class
+            goalTitle.setOnLongClickListener(v -> {
+                // Handle long click event for pending goals
+                PopupMenu pendingMenu = new PopupMenu(getContext(), v);
+                pendingMenu.getMenuInflater().inflate(R.menu.delete_pending, pendingMenu.getMenu());
+                pendingMenu.setOnMenuItemClickListener(item -> {
+                    if (item.getItemId() == R.id.delete) {
+                        // Perform delete action for pending goal
+                        onDeleteClick.accept(goal.id());
+                        return true;
+                    }
+                    return false;
+                });
+                pendingMenu.show();
+                return true;
+            });
+        } else {
+            // Remove any existing long click listener if the goal is not pending
+            goalTitle.setOnLongClickListener(null);
+        }
+
         goalTitle.setOnClickListener(v -> {
             // https://www.codingdemos.com/android-strikethrough-text/
             if (!goal.isCompleted()) {
@@ -71,27 +94,27 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
             }
         });
 
-        goalTitle.setOnLongClickListener(v -> {
-            // Handle long click event
-            // Log the long click event
-            Log.d("LongClickTest", "Long click detected on TextView");
-            // Create a PopupMenu anchored to the clicked TextView
-            PopupMenu pendingMenu = new PopupMenu(parent.getContext(), v);
-            // Inflate the menu layout into the PopupMenu
-            pendingMenu.getMenuInflater().inflate(R.menu.delete_pending, pendingMenu.getMenu());
-            // Set an item click listener for the menu items
-            pendingMenu.setOnMenuItemClickListener(item -> {
-                if (item.getItemId() == R.id.delete){
-                    // Perform delete action
-//                        deleteGoal(goalTextView.getText().toString());
-                    return true;
-                }
-                return false;
-            });
-            // Show the PopupMenu
-            pendingMenu.show();
-            return true;
-        });
+//        goalTitle.setOnLongClickListener(v -> {
+//            // Handle long click event
+//            // Log the long click event
+//            Log.d("LongClickTest", "Long click detected on TextView");
+//            // Create a PopupMenu anchored to the clicked TextView
+//            PopupMenu pendingMenu = new PopupMenu(parent.getContext(), v);
+//            // Inflate the menu layout into the PopupMenu
+//            pendingMenu.getMenuInflater().inflate(R.menu.delete_pending, pendingMenu.getMenu());
+//            // Set an item click listener for the menu items
+//            pendingMenu.setOnMenuItemClickListener(item -> {
+//                if (item.getItemId() == R.id.delete){
+//                    // Perform delete action
+////                        deleteGoal(goalTextView.getText().toString());
+//                    return true;
+//                }
+//                return false;
+//            });
+//            // Show the PopupMenu
+//            pendingMenu.show();
+//            return true;
+//        });
 
         if(goal.visibility() != 0){
             binding.getRoot().setVisibility(View.GONE);
