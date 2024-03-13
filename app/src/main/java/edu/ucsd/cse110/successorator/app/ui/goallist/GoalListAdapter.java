@@ -95,7 +95,6 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
                         activityModel.startOfRecursive(goal);
                     } else if (itemId == R.id.finish) {
                         goal.setIsCompleted(true);
-                        goal.setPending(false);
                         activityModel.remove(goal.id());
                         activityModel.startOfRecursive(goal);
                     } else if (itemId == R.id.delete) {
@@ -119,7 +118,7 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
             else {
                 goalTitle.setOnLongClickListener(null);
             }
-            return true; // Indicates the event is consumed
+            return true;
         });
 
 
