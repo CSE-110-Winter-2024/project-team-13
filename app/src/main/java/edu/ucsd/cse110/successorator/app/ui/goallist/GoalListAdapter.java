@@ -2,6 +2,7 @@ package edu.ucsd.cse110.successorator.app.ui.goallist;
 
 import android.content.Context;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +28,6 @@ import edu.ucsd.cse110.successorator.lib.domain.Goal;
 
 public class GoalListAdapter extends ArrayAdapter<Goal> {
     Consumer<Integer> onDeleteClick;
-
     private MainViewModel activityModel;
 
     public GoalListAdapter(Context context, List<Goal> goals, Consumer<Integer> onDeleteClick, MainViewModel activityModel) {
@@ -49,6 +49,7 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
             binding = ListItemGoalBinding.inflate(layoutInflater, parent, false);
         }
         var goalTitle = binding.goalTitle;
+        var goalContext = binding.contextImg;
         goalTitle.setText(goal.title());
         if (goal.isCompleted()) {
             goalTitle.setPaintFlags(goalTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -98,7 +99,20 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
         else{
             binding.getRoot().setVisibility(View.VISIBLE);
         }
-
+        switch(goal.context()){
+            case 0:
+                goalContext.setImageResource(R.drawable.home);
+                break;
+            case 1:
+                goalContext.setImageResource(R.drawable.work);
+                break;
+            case 2:
+                goalContext.setImageResource(R.drawable.school);
+                break;
+            default:
+                goalContext.setImageResource(R.drawable.errands);
+                break;
+        }
         return binding.getRoot();
     }
 
