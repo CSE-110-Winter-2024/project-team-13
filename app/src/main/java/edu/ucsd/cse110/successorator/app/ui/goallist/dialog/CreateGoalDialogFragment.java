@@ -127,31 +127,7 @@ public class CreateGoalDialogFragment extends DialogFragment {
     }
 
     private void configurePendingView(FragmentDialogCreateGoalPendingBinding view) {
-//        // Get the goal TextView
-//        TextView goalTextView = view.goalTitleText;
-//
-//        // Add a long click listener to the goal TextView
-//        goalTextView.setOnLongClickListener(v -> {
-//            // Handle long click event
-//            // Log the long click event
-//            Log.d("LongClickTest", "Long click detected on TextView");
-//            // Create a PopupMenu anchored to the clicked TextView
-//            PopupMenu pendingMenu = new PopupMenu(v.getContext(), v);
-//            // Inflate the menu layout into the PopupMenu
-//            pendingMenu.getMenuInflater().inflate(R.menu.delete_pending, pendingMenu.getMenu());
-//            // Set an item click listener for the menu items
-//            pendingMenu.setOnMenuItemClickListener(item -> {
-//                if (item.getItemId() == R.id.delete){
-//                    // Perform delete action
-////                        deleteGoal(goalTextView.getText().toString());
-//                    return true;
-//                }
-//                return false;
-//            });
-//            // Show the PopupMenu
-//            pendingMenu.show();
-//            return true;
-//        });
+        //Do Nothing.
     }
 
     private void configureDefaultView(FragmentDialogCreateGoalBinding view) {

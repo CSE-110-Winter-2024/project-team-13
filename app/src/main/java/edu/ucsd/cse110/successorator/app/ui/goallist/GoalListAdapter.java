@@ -72,16 +72,16 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
         } else {
             goalTitle.setPaintFlags(goalTitle.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
         }
-        String currentViewSetting = activityModel.getCurrentViewSetting();
-        if (currentViewSetting.equals("Pending")) {
-            goalTitle.setOnLongClickListener(v -> {
+        goalTitle.setOnLongClickListener(v -> {
+            String currentViewSetting = activityModel.getCurrentViewSetting();
+
+            if ("Pending".equals(currentViewSetting)) {
                 PopupMenu pendingMenu = new PopupMenu(getContext(), v);
                 pendingMenu.getMenuInflater().inflate(R.menu.edit_pending, pendingMenu.getMenu());
                 pendingMenu.setOnMenuItemClickListener(item -> {
                     int itemId = item.getItemId();
                     Calendar calendar = Calendar.getInstance();
                     SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE");
-
                     if (itemId == R.id.movetoday) {
                         goal.setDate(dateFormat.format(calendar.getTime()));
                         goal.setPending(false);
@@ -104,10 +104,7 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
                     return true;
                 });
                 pendingMenu.show();
-                return true;
-            });
-        } else if (currentViewSetting.equals("Recurring")) {
-            goalTitle.setOnLongClickListener(v -> {
+            } else if ("Recurring".equals(currentViewSetting)) {
                 PopupMenu recurringMenu = new PopupMenu(getContext(), v);
                 recurringMenu.getMenuInflater().inflate(R.menu.delete_recurring, recurringMenu.getMenu());
                 recurringMenu.setOnMenuItemClickListener(item -> {
@@ -118,12 +115,13 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
                     return false;
                 });
                 recurringMenu.show();
-                return true;
-            });
-        }
-        else{
-            goalTitle.setOnLongClickListener(null);
-        }
+            }
+            else {
+                goalTitle.setOnLongClickListener(null);
+            }
+            return true; // Indicates the event is consumed
+        });
+
 
         goalTitle.setOnClickListener(v -> {
             // https://www.codingdemos.com/android-strikethrough-text/
