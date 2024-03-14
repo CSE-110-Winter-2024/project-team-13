@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:title="home" />
+        <item
+            android:id="@+id/nav_work"
+            android:title="work" />
+        <item
+            android:id="@+id/nav_school"
+            android:title="school" />
+        <item
+            android:id="@+id/nav_errand"
+            android:title="errand" />
+        <item
+            android:id="@+id/nav_cancel"
+            android:title="cancel" />
+    </group>
+</menu>

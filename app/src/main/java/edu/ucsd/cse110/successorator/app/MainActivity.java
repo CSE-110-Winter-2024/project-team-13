@@ -2,14 +2,21 @@ package edu.ucsd.cse110.successorator.app;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
@@ -28,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private MainViewModel mainViewModel;
     private Thread thread;
     private MockDate mockDate;
+
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,6 +60,16 @@ public class MainActivity extends AppCompatActivity {
 
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         mainViewModel.removeOutdatedCompletedGoals(Calendar.getInstance());
+
+
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        findViewById(R.id.burger).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
 
     }
 
