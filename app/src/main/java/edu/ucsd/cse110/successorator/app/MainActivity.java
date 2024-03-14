@@ -1,15 +1,28 @@
 package edu.ucsd.cse110.successorator.app;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
+import com.google.android.material.navigation.NavigationView;
+
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.NavDestination;
+import androidx.navigation.ui.NavigationUI;
 
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
@@ -28,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private MainViewModel mainViewModel;
     private Thread thread;
     private MockDate mockDate;
+
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,6 +66,49 @@ public class MainActivity extends AppCompatActivity {
 
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         mainViewModel.removeOutdatedCompletedGoals(Calendar.getInstance());
+
+
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+
+        ImageView burger = findViewById(R.id.burger);
+        burger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                String contextSetting = item.getTitle().toString();
+                mainViewModel.setContextSetting(contextSetting);
+                drawerLayout.closeDrawer(GravityCompat.START);
+
+                switch(contextSetting) {
+                    case "Home":
+                        burger.setBackgroundColor(Color.parseColor("#80FFEC95")); // the 80 in front is for transparency
+                        break;
+                    case "Work":
+                        burger.setBackgroundColor(Color.parseColor("#804A87F3"));
+                        break;
+                    case "School":
+                        burger.setBackgroundColor(Color.parseColor("#80FF00FF"));
+                        break;
+                    case "Errand":
+                        burger.setBackgroundColor(Color.parseColor("#807FD27E"));
+                        break;
+                    case "Cancel":
+                        burger.setBackgroundColor(Color.TRANSPARENT);
+                        break;
+                };
+
+                return true; // only here because thats how the method was made
+            }
+        });
+
 
     }
 

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item android:title="Context Focus">
+        <menu android:checkableBehavior="single">
+            <item
+                android:id="@+id/nav_home"
+                android:title="Home" />
+            <item
+                android:id="@+id/nav_work"
+                android:title="Work" />
+            <item
+                android:id="@+id/nav_school"
+                android:title="School" />
+            <item
+                android:id="@+id/nav_errand"
+                android:title="Errand" />
+            <item
+                android:id="@+id/nav_cancel"
+                android:title="Cancel" />
+        </menu>
+    </item>
+</menu>

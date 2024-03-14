@@ -38,6 +38,9 @@ android {
 
 dependencies {
     val room_version = "2.6.1"
+    val nav_version = "2.4.0"
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
     implementation(project(":lib"))
