@@ -145,11 +145,13 @@ public class MainViewModel extends ViewModel {
                             .thenComparingInt(Goal::sortOrder))
                         .collect(Collectors.toList());
                 var newOrderedGoals = new ArrayList<Goal>();
+                String tomorrow = new SimpleDateFormat("EEEE").format(tomorrowInstance.getTime());
                 for (Goal goal : notPendingGoals) {
-                    if (goal.date().equals("0") && goal.recursionType().equals("daily")) {
+                    if (goal.date().equals(tomorrow)) {
+                        newOrderedGoals.add(goal);
+                    } else if (goal.date().equals("0") && goal.recursionType().equals("daily")) {
                         newOrderedGoals.add(goal);
                     } else {
-
                         // weekly: check if it is the same day of the week
                         String day = new SimpleDateFormat("EEEE").format(tomorrowInstance.getTime());
                         if (goal.recursionType().equals("weekly") && day.equals(goal.date())) {

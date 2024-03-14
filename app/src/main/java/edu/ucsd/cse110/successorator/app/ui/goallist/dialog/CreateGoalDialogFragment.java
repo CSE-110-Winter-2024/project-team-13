@@ -1,16 +1,25 @@
 package edu.ucsd.cse110.successorator.app.ui.goallist.dialog;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.PopupMenu;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import edu.ucsd.cse110.successorator.app.MainActivity;
 import edu.ucsd.cse110.successorator.app.MainViewModel;
 import edu.ucsd.cse110.successorator.app.R;
 import edu.ucsd.cse110.successorator.app.databinding.ActivityMainBinding;
@@ -28,7 +37,6 @@ public class CreateGoalDialogFragment extends DialogFragment {
     private FragmentDialogCreateGoalPendingBinding pendingView;
     private FragmentDialogCreateGoalRecurringBinding recurringView;
     private String viewSetting;
-
 
     CreateGoalDialogFragment(){}
 
@@ -198,6 +206,7 @@ public class CreateGoalDialogFragment extends DialogFragment {
                     goal.setRecursionType("yearly");
                     goal.setDate(String.valueOf(new SimpleDateFormat("ddMM").format(cal.getTime())));
                 }
+                goal.setRecurring(true);
                 break;
             default:
                 title = defaultView.goalTitleText.getText().toString();
@@ -209,23 +218,27 @@ public class CreateGoalDialogFragment extends DialogFragment {
                     //goal daily recursion
                     goal = new Goal(null, title, -1);
                     goal.setRecursionType("daily");
+                    goal.setRecurring(true);
                 }
                 else if(defaultView.weekly.isChecked()){
                     //goal weekly recursion
                     goal = new Goal(null, title, -1);
                     goal.setRecursionType("weekly");
+                    goal.setRecurring(true);
                     goal.setDate(String.valueOf(new SimpleDateFormat("EEEE").format(cal.getTime())));
                 }
                 else if(defaultView.monthly.isChecked()){
                     //goal monthly recursion
                     goal = new Goal(null, title, -1);
                     goal.setRecursionType("monthly");
+                    goal.setRecurring(true);
                     goal.setDate(String.valueOf(new SimpleDateFormat("ddEEEE").format(cal.getTime())));
                 }
                 else{
                     //goal yearly recursion
                     goal = new Goal(null, title, -1);
                     goal.setRecursionType("yearly");
+                    goal.setRecurring(true);
                     goal.setDate(String.valueOf(new SimpleDateFormat("ddMM").format(cal.getTime())));
                 }
                 break;
