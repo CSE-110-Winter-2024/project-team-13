@@ -16,6 +16,7 @@ public class Goal {
     private Calendar lastUpdated;
     private int visibility;
     private boolean pending;
+    private boolean recurring;
     private int context;
 
 
@@ -29,6 +30,7 @@ public class Goal {
         this.date = "0";
         this.visibility = 0;
         this.pending = false;
+        this.recurring = false;
         this.context = 0;
     }
 
@@ -43,6 +45,10 @@ public class Goal {
     public int sortOrder() { return sortOrder; }
 
     public boolean isPending() { return pending; }
+
+    public boolean isRecurring() {
+        return recurring;
+    }
 
     public String recursionType(){ return recursionType; }
 
@@ -103,6 +109,10 @@ public class Goal {
     public void setRecursionType(@NonNull String recursionType){ this.recursionType = recursionType; }
 
     public void setPending(boolean pending){ this.pending = pending; }
+
+    public void setRecurring(boolean recurring) {
+        this.recurring = recurring;
+    }
 
     public void setDate(@NonNull String date){ this.date = date; }
 

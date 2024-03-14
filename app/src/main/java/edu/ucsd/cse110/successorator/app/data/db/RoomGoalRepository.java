@@ -57,6 +57,12 @@ import edu.ucsd.cse110.successorator.lib.util.Subject;
                 .collect(Collectors.toList());
     }
 
+    public List<Goal> getRecurring() {
+        return goalDao.getRecurring().stream()
+                .map(GoalEntity::toGoal)
+                .collect(Collectors.toList());
+    }
+
 //    @Override
 //    public List<Goal> getGoalsOfDate(String date) {
 //        return goalDao.getGoalsOfDate(date).stream()

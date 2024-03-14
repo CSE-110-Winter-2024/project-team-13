@@ -32,6 +32,9 @@ public interface GoalDao {
     @Query("SELECT * FROM goals WHERE pending")
     List<GoalEntity> getPending();
 
+    @Query("SELECT * FROM goals WHERE recurring")
+    List<GoalEntity> getRecurring();
+
 //    @Query("SELECT * FROM goals WHERE date = :date")
 //    List<GoalEntity> getGoalsOfDate(String date);
 
@@ -66,6 +69,7 @@ public interface GoalDao {
         newGoal.date = goal.date;
         newGoal.visibility = goal.visibility;
         newGoal.pending = goal.pending;
+        newGoal.recurring = goal.recurring;
         newGoal.context = goal.context;
         return Math.toIntExact(insert(newGoal));
     }
@@ -81,6 +85,7 @@ public interface GoalDao {
         newGoal.date = goal.date;
         newGoal.visibility = goal.visibility;
         newGoal.pending = goal.pending;
+        newGoal.recurring = goal.recurring;
         newGoal.context = goal.context;
         return Math.toIntExact(insert(newGoal));
     }
@@ -96,6 +101,7 @@ public interface GoalDao {
         newGoal.date = goal.date;
         newGoal.visibility = goal.visibility;
         newGoal.pending = goal.pending;
+        newGoal.recurring = goal.recurring;
         newGoal.context = goal.context;
         return Math.toIntExact(insert(newGoal));
     }
@@ -110,6 +116,7 @@ public interface GoalDao {
         newGoal.date = goal.date;
         newGoal.visibility = goal.visibility;
         newGoal.pending = goal.pending;
+        newGoal.recurring = goal.recurring;
         newGoal.context = goal.context;
         return Math.toIntExact(insert(newGoal));
     }

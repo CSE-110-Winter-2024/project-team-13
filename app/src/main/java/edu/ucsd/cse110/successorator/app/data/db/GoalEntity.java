@@ -39,6 +39,9 @@ public class GoalEntity {
     @ColumnInfo(name = "pending")
     public boolean pending;
 
+    @ColumnInfo(name = "recurring")
+    public boolean recurring;
+
     @ColumnInfo(name = "context")
     public int context;
 
@@ -51,6 +54,7 @@ public class GoalEntity {
         this.date = "0";
         this.visibility = 0;
         this.pending = false;
+        this.recurring = false;
         this.context = 0;
     }
 
@@ -63,6 +67,7 @@ public class GoalEntity {
         card.date = goal.date();
         card.visibility = goal.visibility();
         card.pending = goal.isPending();
+        card.recurring = goal.isRecurring();
         card.context = goal.context();
         return card;
     }
@@ -77,6 +82,7 @@ public class GoalEntity {
         goal.setDate(date);
         goal.setVisibility(visibility);
         goal.setPending(pending);
+        goal.setRecurring(recurring);
         goal.setContext(context);
         return goal;
     }
