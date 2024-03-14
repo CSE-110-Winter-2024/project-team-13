@@ -1,10 +1,12 @@
 package edu.ucsd.cse110.successorator.app;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -67,7 +69,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
-        findViewById(R.id.burger).setOnClickListener(new View.OnClickListener() {
+
+        ImageView burger = findViewById(R.id.burger);
+        burger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(GravityCompat.START);
@@ -79,8 +83,28 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                mainViewModel.setContextSetting(item.getTitle().toString());
+                String contextSetting = item.getTitle().toString();
+                mainViewModel.setContextSetting(contextSetting);
                 drawerLayout.closeDrawer(GravityCompat.START);
+
+                switch(contextSetting) {
+                    case "Home":
+                        burger.setBackgroundColor(Color.parseColor("#80FFEC95")); // the 80 in front is for transparency
+                        break;
+                    case "Work":
+                        burger.setBackgroundColor(Color.parseColor("#804A87F3"));
+                        break;
+                    case "School":
+                        burger.setBackgroundColor(Color.parseColor("#80FF00FF"));
+                        break;
+                    case "Errand":
+                        burger.setBackgroundColor(Color.parseColor("#807FD27E"));
+                        break;
+                    case "Cancel":
+                        burger.setBackgroundColor(Color.TRANSPARENT);
+                        break;
+                };
+
                 return true; // only here because thats how the method was made
             }
         });
