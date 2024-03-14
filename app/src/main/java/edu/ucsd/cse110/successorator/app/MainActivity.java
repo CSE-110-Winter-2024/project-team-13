@@ -15,8 +15,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.google.android.material.navigation.NavigationView;
+
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.NavDestination;
+import androidx.navigation.ui.NavigationUI;
 
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
@@ -67,6 +71,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+
+        TextView tester = findViewById(R.id.testerText);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                tester.setText(item.getTitle());
+                return true;
             }
         });
 
