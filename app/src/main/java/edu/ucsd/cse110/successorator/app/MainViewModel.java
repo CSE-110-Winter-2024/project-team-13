@@ -31,6 +31,7 @@ public class MainViewModel extends ViewModel {
     private final SimpleSubject<String> displayedText;
 
     private SimpleSubject<String> viewSetting;
+    private SimpleSubject<String> contextSetting;
 
     private Calendar dateInstance, tomorrowInstance;
 
@@ -51,6 +52,7 @@ public class MainViewModel extends ViewModel {
         this.topGoal = new SimpleSubject<>();
         this.displayedText = new SimpleSubject<>();
         this.viewSetting = new SimpleSubject<>();
+        this.contextSetting = new SimpleSubject<>();
         cal = Calendar.getInstance();
         if(dateInstance == null){
             dateInstance = cal;
@@ -174,11 +176,46 @@ public class MainViewModel extends ViewModel {
             }
         });
 
+        contextSetting.observe(contextSetting -> {
+            if (contextSetting == null) return;
+            int context = -1;
+            switch(contextSetting) {
+                case "Home":
+                    context = 0;
+                    break;
+                case "Work":
+                    context = 1;
+                    break;
+                case "School":
+                    context = 2;
+                    break;
+                case "Errand":
+                    context = 3;
+                    break;
+                case "Cancel":
+                    context = -1;
+                    break;
+            };
+
+            viewSetting.callNotify();
+            if (context != -1) {
+                int finalContext = context;
+                var newOrderedGoals = orderedGoals.getValue().stream()
+                        .filter(goal -> goal.context() == finalContext)
+                        .collect(Collectors.toList());
+                orderedGoals.setValue(newOrderedGoals);
+            }
+        });
+
 
     }
 
     public void setViewSetting(String viewSetting) {
         this.viewSetting.setValue(viewSetting);
+    }
+
+    public void setContextSetting(String contextSetting) {
+        this.contextSetting.setValue(contextSetting);
     }
 
     public void setDateInstance(Calendar dateInstance) {

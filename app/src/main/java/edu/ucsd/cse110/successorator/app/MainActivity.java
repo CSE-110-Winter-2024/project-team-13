@@ -76,12 +76,12 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationView navigationView = findViewById(R.id.nav_view);
 
-        TextView tester = findViewById(R.id.testerText);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                tester.setText(item.getTitle());
-                return true;
+                mainViewModel.setContextSetting(item.getTitle().toString());
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true; // only here because thats how the method was made
             }
         });
 

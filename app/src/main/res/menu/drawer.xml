@@ -6,18 +6,18 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:title="home" />
+            android:title="Home" />
         <item
             android:id="@+id/nav_work"
-            android:title="work" />
+            android:title="Work" />
         <item
             android:id="@+id/nav_school"
-            android:title="school" />
+            android:title="School" />
         <item
             android:id="@+id/nav_errand"
-            android:title="errand" />
+            android:title="Errand" />
         <item
             android:id="@+id/nav_cancel"
-            android:title="cancel" />
+            android:title="Cancel" />
     </group>
 </menu>
