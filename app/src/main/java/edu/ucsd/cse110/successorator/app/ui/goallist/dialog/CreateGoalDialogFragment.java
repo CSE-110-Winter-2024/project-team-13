@@ -1,5 +1,7 @@
 package edu.ucsd.cse110.successorator.app.ui.goallist.dialog;
 
+import static java.lang.Integer.parseInt;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -93,37 +95,15 @@ public class CreateGoalDialogFragment extends DialogFragment {
             cal = Calendar.getInstance();
         }
         //Creates text with day of the week
-        String weeklyMsg = "Weekly on " +
-                String.valueOf(new SimpleDateFormat("EEEE").format(cal.getTime()));
+        String weeklyMsg = "Weekly...";
         view.weekly.setText(weeklyMsg);
         //Creates text with day and which number day this is eg: 3rd Tuesday
-        int week = cal.get(Calendar.DAY_OF_MONTH);
-        //number of times the specific day has repeated this month
-        int numRepeated = ((week-1)/7)+1;
-        String monthlyMsg;
-        //sets monthlyMsg according to number suffix eg: 3rd
-        switch(numRepeated) {
-            case 1:
-                monthlyMsg = "Monthly on " + numRepeated + "st "
-                        + String.valueOf(new SimpleDateFormat("EEEE").format(cal.getTime()));
-                break;
-            case 2:
-                monthlyMsg = "Monthly on " + numRepeated + "nd "
-                        + String.valueOf(new SimpleDateFormat("EEEE").format(cal.getTime()));
-                break;
-            case 3:
-                monthlyMsg = "Monthly on " + numRepeated + "rd "
-                        + String.valueOf(new SimpleDateFormat("EEEE").format(cal.getTime()));
-                break;
-            default:
-                monthlyMsg = "Monthly on " + numRepeated + "th "
-                        + String.valueOf(new SimpleDateFormat("EEEE").format(cal.getTime()));
-                break;
-        }
+        String monthlyMsg = "Monthly...";
         view.monthly.setText(monthlyMsg);
         //Creates text with month and year
-        String yearlyMsg = "Yearly on " + String.valueOf(new SimpleDateFormat("MM/dd").format(cal.getTime()));
+        String yearlyMsg = "Yearly...";
         view.yearly.setText(yearlyMsg);
+
     }
 
     private void configurePendingView(FragmentDialogCreateGoalPendingBinding view) {
@@ -173,8 +153,15 @@ public class CreateGoalDialogFragment extends DialogFragment {
 
         String title;
         Calendar cal = MainViewModel.getCal();
-        Goal goal;
+        Calendar date = Calendar.getInstance();
+        String month = recurringView.monthField.getText().toString();
+        String day = recurringView.dayField.getText().toString();
+        String year = recurringView.yearField.getText().toString();
 
+        date.set(Calendar.MONTH, parseInt(month));
+        date.set(Calendar.DAY_OF_MONTH, parseInt(day));
+        date.set(Calendar.YEAR, parseInt(year));
+        Goal goal;
         switch (viewSetting) {
             case "Pending":
                 title = pendingView.goalTitleText.getText().toString();
@@ -192,19 +179,19 @@ public class CreateGoalDialogFragment extends DialogFragment {
                     //goal weekly recursion
                     goal = new Goal(null, title, -1);
                     goal.setRecursionType("weekly");
-                    goal.setDate(String.valueOf(new SimpleDateFormat("EEEE").format(cal.getTime())));
+                    goal.setDate(String.valueOf(new SimpleDateFormat("EEEE").format(date.getTime())));
                 }
                 else if(recurringView.monthly.isChecked()){
                     //goal monthly recursion
                     goal = new Goal(null, title, -1);
                     goal.setRecursionType("monthly");
-                    goal.setDate(String.valueOf(new SimpleDateFormat("ddEEEE").format(cal.getTime())));
+                    goal.setDate(String.valueOf(new SimpleDateFormat("ddEEEE").format(date.getTime())));
                 }
                 else{
                     //goal yearly recursion
                     goal = new Goal(null, title, -1);
                     goal.setRecursionType("yearly");
-                    goal.setDate(String.valueOf(new SimpleDateFormat("ddMM").format(cal.getTime())));
+                    goal.setDate(String.valueOf(new SimpleDateFormat("ddMM").format(date.getTime())));
                 }
                 goal.setRecurring(true);
                 break;

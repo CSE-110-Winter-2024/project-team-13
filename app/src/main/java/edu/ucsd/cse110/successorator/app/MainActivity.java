@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
-        mainViewModel.removeOutdatedCompletedGoals(Calendar.getInstance());
+        mainViewModel.removeOutdatedCompletedGoals(fakeDate);
 
 
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);

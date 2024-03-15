@@ -46,7 +46,8 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
         var goalContext = binding.contextImg;
         goalTitle.setText(goal.title());
 
-        if(goal.visibility() != 0){
+        String cVS = activityModel.getCurrentViewSetting();
+        if(goal.visibility() != 0 && !"Recurring".equals(cVS)){
             binding.getRoot().setVisibility(View.GONE);
         }
         else{

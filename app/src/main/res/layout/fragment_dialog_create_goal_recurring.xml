@@ -35,10 +35,10 @@
             android:layout_marginHorizontal="6dp"
             android:background="@drawable/home_tag"
             android:button="@android:color/transparent"
+            android:checked="true"
             android:paddingStart="17dp"
             android:text="H"
-            android:textSize="10pt"
-            android:checked="true" />
+            android:textSize="10pt" />
 
         <RadioButton
             android:id="@+id/work"
@@ -49,8 +49,7 @@
             android:button="@android:color/transparent"
             android:paddingStart="15dp"
             android:text="W"
-            android:textSize="10pt"
-            />
+            android:textSize="10pt" />
 
         <RadioButton
             android:id="@+id/school"
@@ -72,7 +71,7 @@
             android:button="@android:color/transparent"
             android:paddingStart="19dp"
             android:text="E"
-            android:textSize="10pt"/>
+            android:textSize="10pt" />
     </RadioGroup>
 
     <RadioGroup
@@ -87,26 +86,69 @@
             android:id="@+id/daily"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Daily"
-            android:checked="true"/>
+            android:checked="true"
+            android:text="Daily" />
 
         <RadioButton
             android:id="@+id/weekly"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Weekly" />
+            android:text="Weekly..." />
 
         <RadioButton
             android:id="@+id/monthly"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Monthly" />
+            android:text="Monthly..." />
 
         <RadioButton
             android:id="@+id/yearly"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Yearly" />
+            android:text="Yearly..." />
     </RadioGroup>
+
+    <EditText
+        android:id="@+id/month_field"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="260dp"
+        android:ems="10"
+        android:hint="MM"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@+id/day_field"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/day_field"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="260dp"
+        android:ems="10"
+        android:hint="DD"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@+id/year_field"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/month_field"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/year_field"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="260dp"
+        android:layout_marginEnd="80dp"
+        android:ems="10"
+        android:hint="YYYY"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/day_field"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
