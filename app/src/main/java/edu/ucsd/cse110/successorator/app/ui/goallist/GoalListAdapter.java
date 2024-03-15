@@ -81,7 +81,7 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
                 pendingMenu.getMenuInflater().inflate(R.menu.edit_pending, pendingMenu.getMenu());
                 pendingMenu.setOnMenuItemClickListener(item -> {
                     int itemId = item.getItemId();
-                    Calendar today = Calendar.getInstance();
+                    Calendar today = activityModel.getCal();
                     if (itemId == R.id.movetoday) {
                         goal.setLastUpdated(today);
                         goal.setPending(false);
@@ -109,7 +109,7 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
                 recurringMenu.setOnMenuItemClickListener(item -> {
                     if (item.getItemId() == R.id.delete) {
                         // Check if the goal date is today and if it's recurring
-                        Calendar today = Calendar.getInstance();
+                        Calendar today = activityModel.getCal();
                         if ((today.get(Calendar.DATE) == (goal.getLastUpdated().get(Calendar.DATE)))
                             && ((today.get(Calendar.MONTH) == (goal.getLastUpdated().get(Calendar.MONTH))))) {
                             // Create a new one-time goal for today
@@ -141,7 +141,7 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
 
             } else {
                 goal.setIsCompleted(false);
-                goal.setLastUpdated(Calendar.getInstance());
+                //goal.setLastUpdated(Calendar.getInstance());
                 activityModel.remove(goal.id());
                 activityModel.endOfIncompleted(goal);
             }
