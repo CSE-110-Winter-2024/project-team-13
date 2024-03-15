@@ -46,7 +46,8 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
         var goalContext = binding.contextImg;
         goalTitle.setText(goal.title());
 
-        if(goal.visibility() != 0){
+        String cVS = activityModel.getCurrentViewSetting();
+        if(goal.visibility() != 0 && !"Recurring".equals(cVS)){
             binding.getRoot().setVisibility(View.GONE);
         }
         else{
@@ -80,16 +81,15 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
                 pendingMenu.getMenuInflater().inflate(R.menu.edit_pending, pendingMenu.getMenu());
                 pendingMenu.setOnMenuItemClickListener(item -> {
                     int itemId = item.getItemId();
-                    Calendar calendar = Calendar.getInstance();
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE");
+                    Calendar today = Calendar.getInstance();
                     if (itemId == R.id.movetoday) {
-                        goal.setDate(dateFormat.format(calendar.getTime()));
+                        goal.setLastUpdated(today);
                         goal.setPending(false);
                         activityModel.remove(goal.id());
                         activityModel.startOfRecursive(goal);
                     } else if (itemId == R.id.movetomorrow) {
-                        calendar.add(Calendar.DATE, 1);
-                        goal.setDate(dateFormat.format(calendar.getTime()));
+                        today.add(Calendar.DATE, 1);
+                        goal.setLastUpdated(today);
                         goal.setPending(false);
                         activityModel.remove(goal.id());
                         activityModel.startOfRecursive(goal);
@@ -108,7 +108,17 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
                 recurringMenu.getMenuInflater().inflate(R.menu.delete_recurring, recurringMenu.getMenu());
                 recurringMenu.setOnMenuItemClickListener(item -> {
                     if (item.getItemId() == R.id.delete) {
-                        onDeleteClick.accept(goal.id());
+                        // Check if the goal date is today and if it's recurring
+                        Calendar today = Calendar.getInstance();
+                        if ((today.get(Calendar.DATE) == (goal.getLastUpdated().get(Calendar.DATE)))
+                            && ((today.get(Calendar.MONTH) == (goal.getLastUpdated().get(Calendar.MONTH))))) {
+                            // Create a new one-time goal for today
+                            Goal oneTimeTodayGoal = new Goal(null, goal.title(), goal.sortOrder());
+                            oneTimeTodayGoal.setContext(goal.context());
+                            activityModel.startOfRecursive(oneTimeTodayGoal); // Add to the repository
+                        }
+                        //onDeleteClick.accept(goal.id());
+                        activityModel.remove(goal.id());
                         return true;
                     }
                     return false;

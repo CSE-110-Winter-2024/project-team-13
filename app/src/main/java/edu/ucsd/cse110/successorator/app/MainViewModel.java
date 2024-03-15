@@ -149,7 +149,7 @@ public class MainViewModel extends ViewModel {
                 var newOrderedGoals = new ArrayList<Goal>();
                 String tomorrow = new SimpleDateFormat("EEEE").format(tomorrowInstance.getTime());
                 for (Goal goal : notPendingGoals) {
-                    if (goal.date().equals(tomorrow)) {
+                    if (goal.getLastUpdated().equals(tomorrow)) {
                         newOrderedGoals.add(goal);
                     } else if (goal.date().equals("0") && goal.recursionType().equals("daily")) {
                         newOrderedGoals.add(goal);
