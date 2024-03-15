@@ -112,8 +112,12 @@ public class MainViewModel extends ViewModel {
 
                         .collect(Collectors.toList());
                 var newOrderedGoals = new ArrayList<Goal>();
+                String today = new SimpleDateFormat("EEEE").format(dateInstance.getTime());
                 for (Goal goal : notPendingGoals) {
                     if (goal.date().equals("0")) {
+                        newOrderedGoals.add(goal);
+                    }
+                    if (goal.getLastUpdated().equals(today)) {
                         newOrderedGoals.add(goal);
                     } else {
 

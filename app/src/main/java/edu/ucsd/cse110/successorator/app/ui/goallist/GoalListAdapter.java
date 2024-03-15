@@ -141,7 +141,7 @@ public class GoalListAdapter extends ArrayAdapter<Goal> {
 
             } else {
                 goal.setIsCompleted(false);
-                //goal.setLastUpdated(Calendar.getInstance());
+                goal.setLastUpdated(activityModel.getCal());
                 activityModel.remove(goal.id());
                 activityModel.endOfIncompleted(goal);
             }
