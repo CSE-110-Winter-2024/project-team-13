@@ -94,6 +94,18 @@ public class GoalTest {
     }
 
     @Test
+    public void recurringGoalAttributes() {
+        Goal goal = new Goal(1, "Weekly Meeting", 1);
+        goal.setRecursionType("weekly");
+        goal.setDate("2024-03-01"); // Assuming this format for simplicity
+        goal.setRecurring(true);
+
+        assertTrue(goal.isRecurring());
+        assertEquals("weekly", goal.recursionType());
+        assertEquals("2024-03-01", goal.date());
+    }
+
+    @Test
     public void goalVisibility() {
         Goal goal = new Goal(1, "Visible Goal", 1);
         goal.setVisibility(1);

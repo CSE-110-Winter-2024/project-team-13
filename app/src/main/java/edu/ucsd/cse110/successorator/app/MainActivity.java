@@ -19,10 +19,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.NavDestination;
-import androidx.navigation.ui.NavigationUI;
+//import androidx.navigation.NavController;
+//import androidx.navigation.Navigation;
+//import androidx.navigation.NavDestination;
+//import androidx.navigation.ui.NavigationUI;
 
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
-        mainViewModel.removeOutdatedCompletedGoals(Calendar.getInstance());
+        mainViewModel.removeOutdatedCompletedGoals(fakeDate);
 
 
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);

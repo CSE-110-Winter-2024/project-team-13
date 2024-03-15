@@ -103,7 +103,7 @@ public class MainViewModel extends ViewModel {
                     .collect(Collectors.toList());
                 orderedGoals.setValue(newOrderedGoals);
             } else if (viewSetting.equals("Today")) {
-                var notPendingGoals = goalRepository.findAllList().stream()
+                var newOrderedGoals = goalRepository.findAllList().stream()
                         .filter(goal -> !goal.isPending())
                         .sorted(Comparator.comparingInt(Goal::visibility)
                             .thenComparing(Goal::isCompleted)
@@ -111,32 +111,6 @@ public class MainViewModel extends ViewModel {
                             .thenComparingInt(Goal::sortOrder))
 
                         .collect(Collectors.toList());
-                var newOrderedGoals = new ArrayList<Goal>();
-                for (Goal goal : notPendingGoals) {
-                    if (goal.date().equals("0")) {
-                        newOrderedGoals.add(goal);
-                    } else {
-
-                        // weekly: check if it is the same day of the week
-                        String day = new SimpleDateFormat("EEEE").format(dateInstance.getTime());
-                        if (day.equals(goal.date())) {
-                            newOrderedGoals.add(goal);
-                        }
-
-                        // monthly: check if today is the (for example 3rd tuesday of month)
-                        String monthlyNumRepeated = String.valueOf((dateInstance.get(Calendar.DAY_OF_MONTH) - 1 / 7) + 1);
-                        if (monthlyNumRepeated.equals(goal.date().substring(0, 2))
-                                && day.equals(goal.date().substring(2))) {
-                            newOrderedGoals.add(goal);
-                        }
-
-                        // yearly: check if month and date matches
-                        String yearlyDate = new SimpleDateFormat("ddMM").format(dateInstance.getTime());
-                        if (yearlyDate.equals(goal.date())) {
-                            newOrderedGoals.add(goal);
-                        }
-                    }
-                }
                 orderedGoals.setValue(newOrderedGoals);
             } else if (viewSetting.equals("Tomorrow")) {
                 var notPendingGoals = goalRepository.findAllList().stream()
@@ -147,9 +121,9 @@ public class MainViewModel extends ViewModel {
                             .thenComparingInt(Goal::sortOrder))
                         .collect(Collectors.toList());
                 var newOrderedGoals = new ArrayList<Goal>();
-                String tomorrow = new SimpleDateFormat("EEEE").format(tomorrowInstance.getTime());
+                //String tomorrow = new SimpleDateFormat("EEEE").format(tomorrowInstance.getTime());
                 for (Goal goal : notPendingGoals) {
-                    if (goal.date().equals(tomorrow)) {
+                    if (goal.getLastUpdated().equals(tomorrowInstance)) {
                         newOrderedGoals.add(goal);
                     } else if (goal.date().equals("0") && goal.recursionType().equals("daily")) {
                         newOrderedGoals.add(goal);
